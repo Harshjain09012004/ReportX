@@ -134,4 +134,17 @@ app.post('/SubmitForm',(req,res)=>{
     }
     else res.json('Unsuccessful');
 })
+
+app.get('/allcomplaints',(req,res)=>{
+    const {token} = req.cookies;
+    if(token)
+    {
+        jwt.verify(token,jwtsecret,{},async (err,user)=>{
+            if(err) throw err;
+            const data = await userModel.findOne({"_id":user.id}).populate("complaints");
+            res.json(data);
+        })
+    }
+    else res.json({});
+})
 app.listen(5000);
