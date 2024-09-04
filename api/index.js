@@ -116,8 +116,7 @@ app.post('/SubmitForm',(req,res)=>{
     {
         jwt.verify(token,jwtsecret,{},async (err,user)=>{
             if(err) res.json('Unsuccessful');
-
-            await complaintModel.create({
+            const complaint = await complaintModel.create({
             name:det.name,
             title:det.title,
             description:det.description,
@@ -129,6 +128,7 @@ app.post('/SubmitForm',(req,res)=>{
             startTime:det.checkin,
             endTime:det.checkout,
             })
+            await userModel.updateOne({_id:user.id},{$push:{"complaints":complaint._id}});
             res.json('Successful');
         })
     }
