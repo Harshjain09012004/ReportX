@@ -123,6 +123,7 @@ app.post('/SubmitForm',(req,res)=>{
             phone:det.phone,
             extraInfo:det.extrainfo,
             address:det.address, 
+            date:det.date,
             tags:det.tags,
             photos:det.photos, 
             startTime:det.checkin,

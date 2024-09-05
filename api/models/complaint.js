@@ -11,6 +11,7 @@ const complaintSchema = new mongoose.Schema({
     description:String,
     extraInfo:String,
     address:String,
+    date:Date,
     tags:{},
     photos:[String],
     startTime:String,

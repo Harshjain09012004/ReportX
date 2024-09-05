@@ -15,6 +15,7 @@ export const Registercomplaints = () => {
   const [address, setaddress] = useState("");
   const [photos, setphotos] = useState("");
   const [photoUrl, setphotoUrl] = useState("")
+  const [date, setdate] = useState("");
   const [description, setdescription] = useState("");
   const [extrainfo, setextrainfo] = useState("");
   const [checkin, setcheckin] = useState("");
@@ -33,7 +34,7 @@ export const Registercomplaints = () => {
     const allfields = {
       name,title,address,photos,
       description,extrainfo,
-      checkin,checkout,tags,phone,
+      checkin,checkout,tags,phone,date,
     };
 
     let details = true;
@@ -46,7 +47,7 @@ export const Registercomplaints = () => {
       if (data === "Successful") {
 
         setname(""); settitle("");setaddress('');setphotos([]);
-        setdescription('');setextrainfo('');setcheckin('');
+        setdescription('');setextrainfo('');setcheckin(''); setdate("");
         setcheckout('');settags({}); setphone(null);
 
         settags({theft:false,threat:false,accounthacking:false,violence:false,property:false,childmarriage:false,bribery:false,hatespeech:false,scam:false});
@@ -213,6 +214,21 @@ export const Registercomplaints = () => {
                 />
               </div>
             </div>
+          </div>
+
+          <div>
+            <h3 className="font-bold text-2xl">Date Of Incident</h3>
+            <h4>Date when incident occured</h4>
+            <input
+              type="date"
+              name="date"
+              value={date}
+              placeholder='Date'
+              className="w-[250px] h-10 mt-4 "
+              onChange={(e) => {
+                setdate(e.target.value);
+              }}
+            />
           </div>
 
           <button
