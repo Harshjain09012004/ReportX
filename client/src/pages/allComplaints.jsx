@@ -4,16 +4,22 @@ import axios from 'axios'
 
 const Allcomplaints = () => {
   const [allcomplaints, setallcomplaints] = useState([]);
-
+  const [cardcomplaints, setcardcomplaints] = useState(false)
   useEffect(() => {
     axios.get('/allcomplaints')
     .then((data)=>{
-      setallcomplaints(data.data.complaints);
+      let arr = data.data.complaints;
+      for(let i=0;i<arr.length;i++){
+        setallcomplaints([...allcomplaints,<Card key={i} det={arr[i]}/>]);
+      }
+      setcardcomplaints(true);
     })
     .catch((err)=>{
       console.log(err);
     })
   }, [])
+
+
 
   return (
     <div>
@@ -24,12 +30,10 @@ const Allcomplaints = () => {
           </h1>
         </div>
       )}
-      {allcomplaints.length > 0 && (
+      {(allcomplaints.length > 0 && cardcomplaints) && (
         <div>
           <h1 className=' text-center text-2xl font-medium'>
-            <Card/>
-            <Card/>
-            Hello complaints are ready!
+            {allcomplaints}
           </h1>
         </div>
       )}

@@ -141,7 +141,7 @@ app.get('/allcomplaints',(req,res)=>{
     {
         jwt.verify(token,jwtsecret,{},async (err,user)=>{
             if(err) throw err;
-            const data = await userModel.findOne({"_id":user.id}).populate("complaints");
+            const data = await userModel.findOne({"_id":user.id},{complaints:1,_id:0}).populate("complaints",{title:1,description:1,address:1,status:1,_id:0});
             res.json(data);
         })
     }
