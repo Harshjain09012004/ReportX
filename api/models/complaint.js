@@ -3,6 +3,10 @@ const mongoose = require('mongoose');
 const complaintSchema = new mongoose.Schema({
     name:String,
     title:String,
+    status:{
+        type:String,
+        default:"Pending"
+    },
     phone:Number,
     description:String,
     extraInfo:String,

@@ -1,32 +1,40 @@
 import React from 'react'
-import { IoStar } from "react-icons/io5";
-import { IoHeartOutline } from "react-icons/io5";
 
 const Card = (props) => {
   return (
     <>
-        <div className='Card flex flex-col gap-2 w-76 h-72
-        p-1 mb-3 border border-gray-300 rounded-2xl shadow-md cursor-pointer'>
+        <div className='Card flex flex-row gap-2 w-[90%] h-72 
+        p-1 m-16 border border-gray-300 rounded-2xl shadow-lg cursor-pointer'>
 
-          <div className='Image relative w-[100%] h-[70%] bg-gray-400 rounded-2xl'>
+          <div className='Image relative w-[17%] h-[80%] bg-gray-400 rounded-2xl mt-6 ml-4'>
             <img src={props.image} width={300} className='relative rounded-2xl object-cover'/>
-            <IoHeartOutline className=" absolute top-2 right-2 text-gray-700"/>
           </div>
 
-          <div className='Description flex flex-col justify-between p-1'>
-            <div className='Location flex justify-between place-items-center'>
-              <p className='text-[14px] font-semibold' >{props.location}</p>
-              <div className='Rating flex place-items-center gap-2'>
-                <IoStar className="text-[14px]"/>
-                <p className='text-[14px]'>{props.rating}</p>
-              </div>
+          <div className='Description w-28 flex flex-col justify-between'>
+            <div className='title flex flex-row gap-1'>
+              <p className='text-lg font-bold'>Title - </p>
+              <p className='text-lg font-normal'>Hell</p>
             </div>
 
-            <div className='text-[14px] font-medium flex flex-col gap-1'>
-              <p>{props.title}</p>
-              <p><span className='Price font-extrabold'>${props.price}</span> Per Night</p>
+            <div className='title flex flex-row gap-1'>
+              <p className='text-lg font-bold'>Description - </p>
+              <p className='text-lg font-normal'>Hell</p>
             </div>
-        
+
+            <div className='title flex flex-row gap-1'>
+              <p className='text-lg font-bold'>Place - </p>
+              <p className='text-lg font-normal'>Hell</p>
+            </div>
+
+            <div className='title flex flex-row gap-1'>
+              <p className='text-lg font-bold'>Date - </p>
+              <p className='text-lg font-normal'>Hell</p>
+            </div>
+
+            <div className='title flex flex-row gap-1'>
+              <p className='text-lg font-bold'>Status - </p>
+              <p className='text-lg font-normal'>Hell</p>
+            </div>
           </div>
 
         </div>

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import Card from '../card';
 import axios from 'axios'
 
 const Allcomplaints = () => {
@@ -26,6 +27,8 @@ const Allcomplaints = () => {
       {allcomplaints.length > 0 && (
         <div>
           <h1 className=' text-center text-2xl font-medium'>
+            <Card/>
+            <Card/>
             Hello complaints are ready!
           </h1>
         </div>
