@@ -4,6 +4,7 @@ import Subheader from '../subheader.jsx'
 import Explore from '../explorebutton.jsx'
 import Subfooter from '../subfooter.jsx';
 import Footer from '../footer.jsx'
+import HelpButton from '../helpbutton.jsx';
 function Landing() {
   return (
     <div className='h-[100%] w-[100%] bg-zinc-50'>
@@ -49,6 +50,7 @@ function Landing() {
         </div>
         
       </div>
+      <HelpButton/>
       <Explore/>
       <Subfooter/>
       <Footer/>
