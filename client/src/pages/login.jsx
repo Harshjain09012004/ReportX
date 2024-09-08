@@ -48,7 +48,10 @@ function Login() {
                     <button type='submit' className='submit'>Login</button>
                 </form>
 
-                <Link to={'/register'} className=' text-sm text-gray-500'>New User ? Sign Up Here</Link>
+                <div className='flex flex-row gap-10'>
+                    <Link to={'/register'} className=' text-sm text-blue-700'>New User ? Sign Up Here</Link>
+                    <Link to={'/'} className=' text-sm text-blue-700'>Back To Home</Link>
+                </div>
             </div>
             
         </div>

@@ -45,7 +45,10 @@ function Register() {
 
                 </form>
                 
-                <Link to={'/login'} className=' text-sm text-gray-500'>Already Registered ? Sign In Here</Link>
+                <div className='flex flex-row gap-8'>
+                    <Link to={'/login'} className=' text-sm text-blue-700'>Registered ? Sign In Here</Link>
+                    <Link to={'/'} className=' text-sm text-blue-700'>Back To Home</Link>
+                </div>
             </div>
             
         </div>
