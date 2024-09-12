@@ -6,11 +6,11 @@ import { BiPaste } from "react-icons/bi";
 import Header from '../header';
 import { usercontext } from '../UserContext';
 import { Registercomplaints } from './registerComplaints';
-import axios from 'axios';
 import Allcomplaints from './allComplaints';
+import ProfilePage from './profilePage';
 
  const AccountPage = () => {
-  const {user,ready,setuser} = useContext(usercontext);
+  const {user,ready} = useContext(usercontext);
   const [redirect, setredirect] = useState(null)
   const {subpage} = useParams();
 
@@ -21,19 +21,6 @@ import Allcomplaints from './allComplaints';
     return classes;
   }
 
-  async function logout(){
-    try{
-      const resp = await axios.post('/logout');
-      if(resp.data.success)
-      {
-        setredirect('/')
-        setuser('');
-      }
-    }
-    catch{
-       alert('Unable to process Request');
-    }
-  }
   if(ready && !user && !redirect) {return <Navigate to={'/login'}/>}
   if(redirect) {return <Navigate to={redirect}/>}
 
@@ -56,12 +43,11 @@ import Allcomplaints from './allComplaints';
               Register Complaint
             </Link>
         </nav>
+
         {subpage === 'profile' && (
-          <div className='flex flex-col items-center gap-5'>
-            <p className=' text-lg'>Logged in as {user}</p>
-            <button className='py-3 px-8 bg-red-500 rounded-xl text-white text-large font-medium' onClick={logout}>Logout</button>
-          </div>
+          <ProfilePage setredirect={setredirect}/>
         )}
+
         {subpage === 'register' && (
           <Registercomplaints/>
         )}

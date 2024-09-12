@@ -13,7 +13,7 @@ const HelpButton = ()=>{
 
     return (
         <>
-            <div className='fixed right-6 bottom-16 bg-indigo-200 w-16 h-16 rounded-full flex place-items-center justify-center shadow-md shadow-gray-500 active:scale-110 hover:bg-zinc-200 hover:scale-105 transition-all cursor-pointer' onClick={helpHandler}>
+            <div className='fixed right-6 bottom-16 bg-zinc-300 w-16 h-16 rounded-full flex place-items-center justify-center shadow-md shadow-gray-500 active:scale-110 hover:bg-indigo-200 hover:scale-105 transition-all cursor-pointer' onClick={helpHandler}>
                 <FaHeadphones className='text-2xl' />
             </div>
 
