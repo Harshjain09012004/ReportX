@@ -118,6 +118,8 @@ app.post('/SubmitForm',(req,res)=>{
             if(err) res.json('Unsuccessful');
             const complaint = await complaintModel.create({
             name:det.name,
+            age:det.age,
+            gender:det.gender,
             title:det.title,
             description:det.description,
             phone:det.phone,

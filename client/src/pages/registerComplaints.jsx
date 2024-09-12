@@ -11,6 +11,8 @@ export const Registercomplaints = () => {
   const {user,ready,setuser} = useContext(usercontext);
   const {action} = useParams();
   const [name,setname] = useState("");
+  const [age, setage] = useState("");
+  const [gender, setgender] = useState("");
   const [title, settitle] = useState("");
   const [address, setaddress] = useState("");
   const [photos, setphotos] = useState("");
@@ -32,7 +34,7 @@ export const Registercomplaints = () => {
   {
     e.preventDefault();
     const allfields = {
-      name,title,address,photos,
+      name,age,gender,title,address,photos,
       description,extrainfo,
       checkin,checkout,tags,phone,date,
     };
@@ -45,10 +47,10 @@ export const Registercomplaints = () => {
     {
       const { data } = await axios.post("/SubmitForm", allfields);
       if (data === "Successful") {
-
-        setname(""); settitle("");setaddress('');setphotos([]);
-        setdescription('');setextrainfo('');setcheckin(''); setdate("");
-        setcheckout('');settags({}); setphone(null);
+        
+        setname(""); settitle(""); setaddress('');setphotos([]); setage(""); setgender("");
+        setdescription(''); setextrainfo('');setcheckin(''); setdate("");
+        setcheckout(''); settags({}); setphone(null);
 
         settags({theft:false,threat:false,accounthacking:false,violence:false,property:false,childmarriage:false,bribery:false,hatespeech:false,scam:false});
 
@@ -95,12 +97,43 @@ export const Registercomplaints = () => {
               type="text"
               name="name"
               value={name}
-              placeholder="Ex : Money Snatching"
+              placeholder="Ex : Jack Louis"
               className=" w-[700px] h-10 mt-4"
               onChange={(e) => {
                 setname(e.target.value);
               }}
             />
+          </div>
+
+          <div className='flex flex-row gap-24'>
+            <div>
+              <h3 className="font-bold text-2xl text">Gender</h3>
+              <h4>Specify Gender of person</h4>
+              <select value={gender} 
+              className=" w-[190px] h-10 pl-2 mt-4" 
+              onChange={(e) => {
+                  setgender(e.target.value);
+              }}>
+                <option>Male</option>
+                <option>Female</option>
+                <option>Others</option>
+              </select>
+            </div>
+
+            <div>
+              <h3 className="font-bold text-2xl text">Age</h3>
+              <h4>Age of targetted person</h4>
+              <input
+                type="number"
+                name="age"
+                value={age}
+                placeholder="Ex : 30"
+                className=" w-[300px] h-10 mt-4"
+                onChange={(e) => {
+                  setage(e.target.value);
+                }}
+              />
+            </div>
           </div>
 
           <div>
