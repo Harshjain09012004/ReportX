@@ -1,18 +1,17 @@
 import axios from 'axios';
-import React,{useContext, useState} from 'react';
+import React,{useContext} from 'react';
 import { usercontext } from '../UserContext';
 import { FcCompactCamera } from "react-icons/fc";
 
-
 const ProfilePage = (props)=>{
-    const {user,setuser} = useContext(usercontext);
-    const [profile, setprofile] = useState('');
-
+    const {user,setuser,dp,setdp} = useContext(usercontext);
+    
     async function logout(){
         try{
             const resp = await axios.post('/logout');
             if(resp.data.success){
-                props.setredirect('/'); setuser('');
+               setuser(''); setdp('');
+               props.setredirect('/');
             }
         }
         catch{alert('Unable to process Request');}
@@ -26,7 +25,7 @@ const ProfilePage = (props)=>{
         axios.post('/uploadByButtonProfile',data,{
         headers:{'Content-Type':'multipart/form-data'}
         }).then((res)=>{
-            setprofile(res.data[0]);
+            setdp(res.data[0]);
         })
     }
 
@@ -34,7 +33,7 @@ const ProfilePage = (props)=>{
         <div className='flex gap-10'>
             <div className=' w-72 h-[330px] ml-10 mt-10 p-5 gap-3 shadow-slate-300 shadow-xl rounded-2xl flex flex-col justify-center place-items-center border border-gray-200'>
                 <div className='bg-gray-400 w-44 h-44 shadow-slate-700 shadow-md rounded-full mt-2 relative'>
-                    <img src={`http://localhost:5000/uploads/${profile}`} className=' object-cover rounded-full h-44 w-44'/>
+                    <img src={`http://localhost:5000/uploads/${dp}`} className=' object-cover rounded-full h-44 w-44'/>
 
                     <label className='absolute right-1 bottom-0 active:scale-125 transition-all cursor-pointer'>
                         <input

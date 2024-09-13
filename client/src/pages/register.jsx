@@ -8,16 +8,16 @@ function Register() {
   const [email, setemail] = useState("");
   const [pass, setpass] = useState("");
   const [tasks, settasks] = useState([]);
-  const [redirect, setredirect] = useState(false);
-  const {setuser} = useContext(usercontext);
 
-  function registeruser(e)
+  async function registeruser(e)
   {
     e.preventDefault();
     settasks([...tasks,{name,pass,email}]);      
     setname(""); setpass(""); setemail("");
 
-    axios.post('/create',{name,pass,email});
+    const res = await axios.post('/register',{name,pass,email});
+    if(res.data.success) alert("Registered Successfuly, Please Login Now");
+    else alert("User Registered With Same Email, Use Different");
   }
 
   return (

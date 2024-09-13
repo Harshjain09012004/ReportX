@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import './App.css'
 import Landing from './pages/landingpage';
-import Victim from './pages/victimePage';
 import Admin from './pages/adminPage';
 import Login from './pages/login';
 import Register from './pages/register';
@@ -19,7 +18,6 @@ function App() {
       <Routes>
         <Route path='/' element={<Landing/>}/>
         <Route path='/admin' element={<Admin/>}/>
-        <Route path='/user' element={<Victim/>}/>
         <Route path='/login' element={<Login/>}/>
         <Route path='/register' element={<Register/>}/>
         <Route path='/account/:subpage?' element={<AccountPage/>}/>

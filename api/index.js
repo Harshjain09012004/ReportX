@@ -22,21 +22,17 @@ app.use(cors({
 }));
 app.use('/uploads',express.static(path.join(__dirname+'/uploads')));
 
-app.get('/test',(req,res)=>{
-    res.json('test ok');
-})
-
-app.post('/create',async function(req,res){
+app.post('/register',async function(req,res){
     try{
         const obj = await userModel.create({
         name:req.body.name,
         email:req.body.email,
         password:bcrypt.hashSync(req.body.pass,bcryptSalt)
         })
-        res.send("")
+        res.json({success:true});
     }
     catch(e){
-        res.send("Unsuccessful");
+        res.json({success:false});
     }
     
 })
@@ -48,10 +44,10 @@ app.post('/login',async function(req,res){
         {
             const passOk = bcrypt.compareSync(req.body.lpass,target_user.password);
             if(passOk){
-                const token = jwt.sign({name:target_user.name,id:target_user._id},jwtsecret,{},(err,token)=>{
+                const token = jwt.sign({name:target_user.name,id:target_user._id,photo:target_user.profileimage},jwtsecret,{},(err,token)=>{
                     if(err) throw err;
                     res.cookie('token',token);
-                    res.json({ success: true ,name:target_user.name});
+                    res.json({ success: true ,name:target_user.name,photo:target_user.profileimage});
                 });
             }
             else res.json({ success: false, err: "Invalid password" });

@@ -8,7 +8,7 @@ function Login() {
   const [lpass, setlpass] = useState('');
   const [tasks, settasks] = useState([]);
   const [redirect, setredirect] = useState(false)
-  const {setuser} = useContext(usercontext);
+  const {setuser,setdp} = useContext(usercontext);
 
   async function loginhandler(e)
   {
@@ -17,7 +17,7 @@ function Login() {
                 
     try{
         const res = await axios.post('/login',{lname,lpass});
-        setuser(res.data.name);
+        setuser(res.data.name); setdp(res.data.photo);
 
         if(res.data.success) {setredirect(true);}
         else {alert('login failed : ' + res.data.err)}
