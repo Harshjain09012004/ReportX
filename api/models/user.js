@@ -12,6 +12,7 @@ const userSchema = new mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:'complaint'
     }],
+    profileimage:String,
 });
 
 const userModel = mongoose.model('User',userSchema);

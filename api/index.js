@@ -108,6 +108,29 @@ app.post('/uploadByButton',upload.array('photos',10),(req,res)=>{
     res.json(filenames)
 })
 
+app.post('/uploadByButtonProfile',upload.array('photos',10),async function(req,res){
+    const {token} = req.cookies; let data = "";
+    jwt.verify(token,jwtsecret,{},(err,user)=>{
+        if(err) throw err;
+        data = user;
+    })
+
+    const upfiles = req.files;
+    let filename = [];
+    for(let file of upfiles)
+    {
+        const orname = file.originalname;
+        const ext = path.extname(orname);
+        const filepath = file.path;
+        const newname = Date.now() + ext;
+        fs.renameSync(filepath,'uploads//' + newname);
+        filename.push(newname)
+    }
+    const profilepicdet = await userModel.findOne({"_id":data.id},{"profilephoto":1,"_id":0});
+    await userModel.updateOne();
+    res.json(filename)
+})
+
 app.post('/SubmitForm',(req,res)=>{
     const det = req.body;
     const {token} = req.cookies;
