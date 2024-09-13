@@ -33,10 +33,10 @@ app.post('/create',async function(req,res){
         email:req.body.email,
         password:bcrypt.hashSync(req.body.pass,bcryptSalt)
         })
-        res.json(obj);
+        res.send("")
     }
     catch(e){
-        res.send("User with email already Registered");
+        res.send("Unsuccessful");
     }
     
 })
@@ -126,9 +126,20 @@ app.post('/uploadByButtonProfile',upload.array('photos',10),async function(req,r
         fs.renameSync(filepath,'uploads//' + newname);
         filename.push(newname)
     }
-    const profilepicdet = await userModel.findOne({"_id":data.id},{"profilephoto":1,"_id":0});
-    await userModel.updateOne();
-    res.json(filename)
+
+    const profilepicdet = await userModel.findOne({"_id":data.id},{"profileimage":1,"_id":0});
+
+    await userModel.updateOne({"_id":data.id},{"profileimage":filename[0]});
+    try{
+        const filePathToDelete = path.join(__dirname, 'uploads', profilepicdet.profileimage);
+        if(profilepicdet.profileimage){
+            fs.unlinkSync(filePathToDelete);
+        }
+        res.json(filename);
+    }
+    catch(err){
+        console.log(err)
+    }
 })
 
 app.post('/SubmitForm',(req,res)=>{

@@ -1,21 +1,21 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Link } from 'react-router-dom';
 import axios from 'axios'
+import { usercontext } from '../UserContext';
 
 function Register() {
   const [name, setname] = useState("");
   const [email, setemail] = useState("");
   const [pass, setpass] = useState("");
   const [tasks, settasks] = useState([]);
+  const [redirect, setredirect] = useState(false);
+  const {setuser} = useContext(usercontext);
 
   function registeruser(e)
   {
     e.preventDefault();
-    settasks([...tasks,{name,pass,email}]);
-               
-    setname("");
-    setpass("");
-    setemail("");
+    settasks([...tasks,{name,pass,email}]);      
+    setname(""); setpass(""); setemail("");
 
     axios.post('/create',{name,pass,email});
   }
