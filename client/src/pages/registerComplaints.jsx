@@ -1,5 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { usercontext } from '../UserContext';
+import React, {useState } from 'react'
 import { IoAddOutline } from "react-icons/io5";
 import { Link, Navigate, useParams } from 'react-router-dom';
 import axios from 'axios';
@@ -8,11 +7,10 @@ import { Tags } from '../tags';
 import { Uploadphotos } from '../uploadPhotos';
 
 export const Registercomplaints = () => {
-  const {user,ready,setuser} = useContext(usercontext);
   const {action} = useParams();
   const [name,setname] = useState("");
   const [age, setage] = useState("");
-  const [gender, setgender] = useState("");
+  const [gender, setgender] = useState("Male");
   const [title, settitle] = useState("");
   const [address, setaddress] = useState("");
   const [photos, setphotos] = useState("");
@@ -50,7 +48,7 @@ export const Registercomplaints = () => {
         
         setname(""); settitle(""); setaddress('');setphotos([]); setage(""); setgender("");
         setdescription(''); setextrainfo('');setcheckin(''); setdate("");
-        setcheckout(''); settags({}); setphone(null);
+        setcheckout(''); settags({}); setphone('');
 
         settags({theft:false,threat:false,accounthacking:false,violence:false,property:false,childmarriage:false,bribery:false,hatespeech:false,scam:false});
 
