@@ -7,12 +7,16 @@ const userModel = require('./models/user');
 const complaintModel = require('./models/complaint');
 const cookieparser = require('cookie-parser')
 const bcryptSalt = bcrypt.genSaltSync(10);
-const jwtsecret = "dklskd#904$)(4940";
+
+require('dotenv').config();
+const jwtsecret = process.env.jwtsecret;
+
 const download = require('image-downloader');
 const path = require('path');
 const multer = require('multer');
 const upload = multer({dest:'uploads/'});
 const fs = require('fs');
+console.log(jwtsecret);
 
 app.use(cookieparser());
 app.use(express.json());
