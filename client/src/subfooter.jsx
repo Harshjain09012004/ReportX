@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 const Subfooter = () => {
   return (
     <>
-    <div className='Subfooter mt-10 px-[5%] py-[3%] bg-zinc-100 flex flex-col gap-10'>
+    <div className='Subfooter px-[5%] py-[3%] bg-zinc-100 flex flex-col gap-10'>
 
       <p className=' text-center text-2xl font-semibold'>Raise Your Voice</p>
 

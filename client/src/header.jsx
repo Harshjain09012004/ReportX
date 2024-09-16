@@ -32,7 +32,7 @@ const Header = () => {
 
             <div className='relative flex place-items-center min-w-32 justify-evenly gap-6  rounded-full p-2 shadow-md shadow-slate-400 bg-white'>
 
-                <div className={`absolute bg-zinc-200 top-[60px] w-48 max-h-40 text-md rounded-2xl transition-all ${menuclass}`}>
+                <div className={`absolute bg-zinc-200 top-[60px] w-48 max-h-40 text-md rounded-2xl transition-all z-10 shadow-md shadow-zinc-400 ${menuclass}`}>
 
                     {!user && (
                         <div className='flex flex-col gap-2 mt-4 mb-4'>
