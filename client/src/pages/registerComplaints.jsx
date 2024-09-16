@@ -1,6 +1,7 @@
 import React, {useState } from 'react'
 import { IoAddOutline } from "react-icons/io5";
 import { Link, Navigate, useParams } from 'react-router-dom';
+import { IoWarningOutline } from "react-icons/io5";
 import axios from 'axios';
 import { GiCancel } from "react-icons/gi";
 import { Tags } from '../tags';
@@ -45,13 +46,7 @@ export const Registercomplaints = () => {
     {
       const { data } = await axios.post("/SubmitForm", allfields);
       if (data === "Successful") {
-        
-        setname(""); settitle(""); setaddress('');setphotos([]); setage(""); setgender("");
-        setdescription(''); setextrainfo('');setcheckin(''); setdate("");
-        setcheckout(''); settags({}); setphone('');
-
-        settags({theft:false,threat:false,accounthacking:false,violence:false,property:false,childmarriage:false,bribery:false,hatespeech:false,scam:false});
-
+        alert("Comlaint Registered Successfully")
         setredirect("/account/accomodation");
       }
     }
@@ -63,17 +58,25 @@ export const Registercomplaints = () => {
       {redirect && <Navigate to={redirect} />}
 
       {action !== "new" && (
-        <Link to={"/account/register/new"} className="flex justify-center">
-          <button
-            className="flex gap-3 items-center text-white bg-red-500 rounded-xl px-3 py-2"
-            onClick={() => {
-              setredirect("");
-            }}
-          >
-            <IoAddOutline className="text-xl" />
-            Add New Complaint
-          </button>
-        </Link>
+        <div className='flex flex-col place-items-center gap-5'>
+
+          <div className='bg-red-500 w-[65%] rounded-xl flex flex-col gap-2 p-3 place-items-center text-white text-xl font-semibold'>
+            <IoWarningOutline className='text-6xl'/>
+            <p className='m-3'>Registering fake or wrong Complaints intentionally is punishable under IPC 418 with a jail upto 3 Months or a fine of 10,000. If you are registering complaint for somone else then first verify it's facts then only register. Once you register complaint our team will contact you either through call or physically at center then your presence is mandatory failing in such will make your complaint to be closed within 3 days.</p>
+          </div>
+          <Link to={"/account/register/new"} className="flex justify-center gap-5">
+            <button
+              className="flex gap-3 items-center text-white bg-red-500 rounded-xl px-3 py-2 font-semibold"
+              onClick={() => {
+                setredirect("");
+              }}
+            >
+              <IoAddOutline className="text-xl" />
+              Add New Complaint
+            </button>
+          </Link>
+        </div>
+        
       )}
 
       {action === "new" && (
