@@ -68,11 +68,11 @@ const ProfilePage = (props)=>{
                 <button className='py-3 px-8 bg-red-500 rounded-xl text-white text-large font-medium' onClick={logout}>Logout</button>
             </div>
 
-            <div className='w-[72%] h-[330px] mt-10 p-5 shadow-slate-300 shadow-xl rounded-2xl border border-gray-200 grid grid-cols-2 text-2xl font-semibold text-center pt-20'>
-                <p>Total Complaints {compldet[0]}</p>
-                <p className=' text-green-400'>Active Complaints {compldet[1]}</p>
-                <p className=' text-rose-400'>Pending Complaints {compldet[2]}</p>
-                <p className=' text-orange-800'>Closed Complaints {compldet[3]}</p>
+            <div className='w-[72%] h-[330px] mt-10 p-10 shadow-slate-300 shadow-xl rounded-2xl border border-gray-200 grid grid-cols-2 text-[26px] font-bold text-center'>
+                <p className='border border-slate-300 place-content-center rounded-3xl m-2'>Total Complaints {compldet[0]}</p>
+                <p className='border border-slate-300 place-content-center text-green-400 rounded-3xl m-2'>Active Complaints {compldet[1]}</p>
+                <p className='border border-slate-300 place-content-center text-rose-400 rounded-3xl m-2'>Pending Complaints {compldet[2]}</p>
+                <p className='border border-slate-300 place-content-center text-sky-400 rounded-3xl m-2'>Closed Complaints {compldet[3]}</p>
             </div>
         </div>
     )
