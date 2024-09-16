@@ -20,10 +20,10 @@ const Allcomplaints = () => {
   return (
     <div>
       {allcomplaints.length == 0 && (
-        <div>
-          <h1 className=' text-center text-2xl font-medium'>
-            No Complaints Found!
-          </h1>
+        <div className='flex justify-center'>
+          <div className='text-center text-3xl rounded-3xl shadow-md shadow-zinc-300 font-medium bg-slate-200 p-24 m-6'>
+          No Complaints Found!
+          </div>
         </div>
       )}
       {allcomplaints.length > 0 && (
