@@ -12,11 +12,13 @@ function Register() {
   {
     e.preventDefault();
     settasks([...tasks,{name,pass,email}]);      
-    setname(""); setpass(""); setemail("");
-
-    const res = await axios.post('/register',{name,pass,email});
-    if(res.data.success) alert("Registered Successfuly, Please Login Now");
-    else alert("User Registered With Same Email, Use Different");
+    try{
+        const res = await axios.post('/register',{name,pass,email});
+        setname(""); setpass(""); setemail("");
+        if(res.data.success) alert("Registered Successfuly, Please Login Now");
+        else alert("User Registered With Same Email, Use Different");
+    }
+    catch{alert('Registration Failed');}
   }
 
   return (

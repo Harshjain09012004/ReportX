@@ -26,13 +26,16 @@ export const Uploadphotos = (props) => {
   }
 
   async function uploadphoto(e){
-    e.preventDefault();
-    if (isValidURL(props.photoUrl)) {
-      const photourl = props.photoUrl;
-      const res = await axios.post("/uploadByLinks", { photourl })
-      props.setphotos([...props.photos,res.data])
-      props.setphotoUrl("");
+    try{
+      e.preventDefault();
+      if (isValidURL(props.photoUrl)) {
+        const photourl = props.photoUrl;
+        const res = await axios.post("/uploadByLinks", { photourl })
+        props.setphotos([...props.photos,res.data])
+        props.setphotoUrl("");
+      }
     }
+    catch{alert('Non-Supported Image')}
   }
 
   function imagePicker(e){

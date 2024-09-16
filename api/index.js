@@ -127,15 +127,13 @@ app.post('/uploadByButtonProfile',upload.array('photos',10),async function(req,r
 
     await userModel.updateOne({"_id":data.id},{"profileimage":filename[0]});
     try{
-        const filePathToDelete = path.join(__dirname, 'uploads', profilepicdet.profileimage);
         if(profilepicdet.profileimage){
+            const filePathToDelete = path.join(__dirname, 'uploads', profilepicdet.profileimage);
             fs.unlinkSync(filePathToDelete);
         }
         res.json(filename);
     }
-    catch(err){
-        console.log(err)
-    }
+    catch(err){console.log(err);}
 })
 
 app.post('/SubmitForm',(req,res)=>{
