@@ -16,7 +16,6 @@ const path = require('path');
 const multer = require('multer');
 const upload = multer({dest:'uploads/'});
 const fs = require('fs');
-console.log(jwtsecret);
 
 app.use(cookieparser());
 app.use(express.json());
