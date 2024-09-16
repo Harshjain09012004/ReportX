@@ -1,11 +1,29 @@
 import axios from 'axios';
-import React,{useContext} from 'react';
+import React,{useContext, useEffect, useState} from 'react';
 import { usercontext } from '../UserContext';
 import { FcCompactCamera } from "react-icons/fc";
 
 const ProfilePage = (props)=>{
     const {user,setuser,dp,setdp} = useContext(usercontext);
+    const [compldet,setcompldet] = useState([]);
+
+    useEffect(() => {
+      return () => {
+        axios.get('/allcomplaints').then(({data})=>{
+            let total = data.complaints.length; 
+            let pending = 0, active = 0, closed = 0;
+             
+            for(let ob of data.complaints){
+                if(ob.status == 'Pending') pending++;
+                else if(ob.status == 'Closed') closed++;
+                else active++;
+            }
+            setcompldet([total,active,pending,closed])
+        })
+      }
+    }, [])
     
+
     async function logout(){
         try{
             const resp = await axios.post('/logout');
@@ -17,7 +35,7 @@ const ProfilePage = (props)=>{
         catch{alert('Unable to process Request');}
     }
 
-    function imagePicker(e){
+    function imagePicker(e){ 
         const files = e.target.files;
         const data = new FormData();
         for(let file of files) {data.append('photos',file)}
@@ -50,8 +68,11 @@ const ProfilePage = (props)=>{
                 <button className='py-3 px-8 bg-red-500 rounded-xl text-white text-large font-medium' onClick={logout}>Logout</button>
             </div>
 
-            <div className='w-[72%] h-[330px] mt-10 p-5 shadow-slate-300 shadow-xl rounded-2xl border border-gray-200'>
-                
+            <div className='w-[72%] h-[330px] mt-10 p-5 shadow-slate-300 shadow-xl rounded-2xl border border-gray-200 grid grid-cols-2 text-2xl font-semibold text-center pt-20'>
+                <p>Total Complaints {compldet[0]}</p>
+                <p className=' text-green-400'>Active Complaints {compldet[1]}</p>
+                <p className=' text-rose-400'>Pending Complaints {compldet[2]}</p>
+                <p className=' text-orange-800'>Closed Complaints {compldet[3]}</p>
             </div>
         </div>
     )
