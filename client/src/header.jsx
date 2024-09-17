@@ -20,15 +20,11 @@ const Header = () => {
     <>
     <div className=' bg-white h-20 w-full flex  place-items-center px-[5%] justify-between shadow-md'>
         <Link to={'/'}>
-            <div className='logo text-red-500 flex place-items-center gap-[2px] '>
-                <Link to={'/'}>
-                    <img src='src\assets\banner.png' className='w-48 h-20'/>
-                </Link>
-            </div>
+            <img src='\src\assets\banner.png' className='w-48 h-20'/>
         </Link>
         
         <div className='flex place-items-center gap-6'>
-            <Link to={'/account/register'} className='w-36 h-12 text-center bg-black text-white p-2 border text-lg rounded-full hover:scale-110 transition-all'>Be Fearless</Link>
+            <Link to={user?'/account/register':'/login'} className='w-36 h-12 text-center bg-black text-white p-2 border text-lg rounded-full hover:scale-110 transition-all'>Be Fearless</Link>
 
             <div className='relative flex place-items-center min-w-32 justify-evenly gap-6  rounded-full p-2 shadow-md shadow-slate-400 bg-white'>
 
@@ -41,7 +37,7 @@ const Header = () => {
                         </div>
                     )}
                     
-                    {user && ready && (
+                    {(user && ready) && (
                         <div className='flex flex-col gap-2 mt-4 mb-4'>
                             <Link className='text-center p-1 hover:bg-slate-400 transition-colors' to={'/account/profile'}>Your Profile</Link>
                             <Link className='text-center p-1 hover:bg-slate-400 transition-colors'  to={'/account/complaints'}>Your Complaints</Link>
