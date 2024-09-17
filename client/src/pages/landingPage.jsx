@@ -2,7 +2,7 @@ import React, { useContext, useEffect} from 'react';
 import Header from '../header.jsx'
 import Subheader from '../subheader.jsx'
 import Explore from '../explorebutton.jsx'
-import Slider from '../../imageSlider.jsx';
+import Slider from '../imageSlider.jsx';
 import Subfooter from '../subfooter.jsx';
 import Footer from '../footer.jsx'
 import HelpButton from '../helpbutton.jsx';
