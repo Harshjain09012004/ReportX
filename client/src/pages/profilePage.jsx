@@ -4,7 +4,7 @@ import { usercontext } from '../UserContext';
 import { FcCompactCamera } from "react-icons/fc";
 
 const ProfilePage = (props)=>{
-    const {user,setuser,dp,setdp} = useContext(usercontext);
+    const {user,setuser,dp,setdp,setisAdmin} = useContext(usercontext);
     const [compldet,setcompldet] = useState([]);
 
     useEffect(() => {
@@ -28,7 +28,7 @@ const ProfilePage = (props)=>{
         try{
             const resp = await axios.post('/logout');
             if(resp.data.success){
-               setuser(''); setdp('');
+               setuser(''); setdp(''); setisAdmin(false);
                props.setredirect('/');
             }
         }

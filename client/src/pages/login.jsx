@@ -6,31 +6,31 @@ import axios from 'axios';
 function Login() {
   const [lname, setlname] = useState('');
   const [lpass, setlpass] = useState('');
-  const [tasks, settasks] = useState([]);
-  const [redirect, setredirect] = useState(false)
-  const {setuser,setdp} = useContext(usercontext);
+  const [redirect1, setredirect1] = useState(false);
+  const [redirect2, setredirect2] = useState(false);
+  const {setuser,setdp,setisAdmin} = useContext(usercontext);
 
   async function loginhandler(e)
   {
-    e.preventDefault();
-    settasks([...tasks,{lname,lpass}]);
-                
+    e.preventDefault();                
     try{
         const res = await axios.post('/login',{lname,lpass});
-        setuser(res.data.name); setdp(res.data.photo);
 
-        if(res.data.success) {setredirect(true);}
+        if(res.data.success){
+            setuser(res.data.name); setdp(res.data.photo);
+            if(res.data.role == 'admin'){
+                setredirect2(true); setisAdmin(true);
+            } 
+            else setredirect1(true);
+        }
         else {alert('login failed : ' + res.data.err)}
     }
-    catch(e){
-        alert('login failed')
-    }
-                
-    setlname("");
-    setlpass("");
+    catch(e){alert('login failed')}
+    setlname(""); setlpass("");
   }
 
-  if(redirect) {return <Navigate to={'/'}/>}
+  if(redirect1) {return <Navigate to={'/'}/>}
+  if(redirect2) {return <Navigate to={'/admin'}/>}
   return (
     <>
         <div className='login h-screen w-full bg-gray-200 flex justify-center place-items-center'>

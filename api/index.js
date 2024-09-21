@@ -51,7 +51,7 @@ app.post('/login',async function(req,res){
                 const token = jwt.sign({name:target_user.name,id:target_user._id,photo:target_user.profileimage},jwtsecret,{},(err,token)=>{
                     if(err) throw err;
                     res.cookie('token',token);
-                    res.json({ success: true ,name:target_user.name,photo:target_user.profileimage});
+                    res.json({ success: true ,name:target_user.name,photo:target_user.profileimage,role:target_user.role });
                 });
             }
             else res.json({ success: false, err: "Invalid password" });
@@ -69,9 +69,10 @@ app.get('/profile',(req,res)=>{
     const {token} = req.cookies;
     if(token)
     {
-        jwt.verify(token,jwtsecret,{},(err,user)=>{
+        jwt.verify(token,jwtsecret,{},async (err,user)=>{
             if(err) throw err;
-            res.json(user);
+            const data = await userModel.findOne({"_id":user.id},{"name":1,"profileimage":1,"role":1,"_id":0});
+            res.json(data);
         })
     }
     else res.json(null);

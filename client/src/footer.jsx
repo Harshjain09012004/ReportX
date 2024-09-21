@@ -4,6 +4,8 @@ import { TfiWorld } from "react-icons/tfi";
 import { FaFacebookSquare } from "react-icons/fa";
 import { FaSquareTwitter } from "react-icons/fa6";
 import { FaSquareInstagram } from "react-icons/fa6";
+import { GrMail } from "react-icons/gr";
+
 
 const Footer = () => {
   return (
@@ -18,10 +20,11 @@ const Footer = () => {
                 <p className='text-zinc-600'>English</p>
             </div>
 
-            <div className='socialmedia flex gap-3 text-xl'>
+            <div className='socialmedia flex gap-3 text-xl place-items-center'>
                 <Link to={"#"}><FaFacebookSquare/></Link>
                 <Link to={"#"}><FaSquareInstagram/></Link>
                 <Link to={"#"}><FaSquareTwitter/></Link>
+                <Link to={'mailto:CrimePortal2024@mail.com'}><GrMail className='text-[22px]'/></Link>
             </div>
 
         </div>

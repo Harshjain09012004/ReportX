@@ -4,21 +4,23 @@ import { createContext, useEffect, useState } from "react";
 export const usercontext = createContext({});
 
 export function ContextProvider({children}){
-    const [user, setuser] = useState(null)
-    const [ready, setready] = useState(false)
+    const [user, setuser] = useState(null);
+    const [ready, setready] = useState(false);
     const [dp,setdp] = useState('');
-    const [count, setcount] = useState(0)
+    const [count, setcount] = useState(0);
+    const [isAdmin, setisAdmin] = useState(false);
 
     useEffect(()=>{
       axios.get('/profile').then((user)=>{
-        setuser(user.data.name);
-        setdp(user.data.photo); 
+        setuser(user.data.name); 
+        setdp(user.data.profileimage); 
+        setisAdmin(user.data.role == 'admin'); 
         setready(true);
       })
     },[])
 
     return(
-        <usercontext.Provider value={{user,setuser,ready,setready,dp,setdp,count,setcount}}>
+        <usercontext.Provider value={{user,setuser,ready,setready,dp,setdp,count,setcount,isAdmin,setisAdmin}}>
           {children} 
         </usercontext.Provider>
     )
