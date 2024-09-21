@@ -7,17 +7,15 @@ function Register() {
   const [email, setemail] = useState("");
   const [pass, setpass] = useState("");
   const [phone, setphone] = useState("");
-  const [tasks, settasks] = useState([]);
 
   async function registeruser(e)
   {
-    e.preventDefault();
-    settasks([...tasks,{name,pass,email}]);      
+    e.preventDefault();   
     try{
-        const res = await axios.post('/register',{name,pass,email});
-        setname(""); setpass(""); setemail("");
+        const res = await axios.post('/register',{name,pass,email,phone});
+        setname(""); setpass(""); setemail(""); setphone("");
         if(res.data.success) alert("Registered Successfuly, Please Login Now");
-        else alert("User Registered With Same Email, Use Different");
+        else alert("User Registered With Same Email Or Phone Number");
     }
     catch{alert('Registration Failed');}
   }

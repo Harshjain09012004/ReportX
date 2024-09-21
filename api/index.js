@@ -30,7 +30,8 @@ app.post('/register',async function(req,res){
         const obj = await userModel.create({
         name:req.body.name,
         email:req.body.email,
-        password:bcrypt.hashSync(req.body.pass,bcryptSalt)
+        password:bcrypt.hashSync(req.body.pass,bcryptSalt),
+        phone:req.body.phone
         })
         res.json({success:true});
     }

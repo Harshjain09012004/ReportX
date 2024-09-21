@@ -8,11 +8,20 @@ const userSchema = new mongoose.Schema({
         unique:true
     },
     password:String,
+    phone:{
+        type:String,
+        unique:true
+    },
+    profileimage:String,
     complaints:[{
         type:mongoose.Schema.Types.ObjectId,
         ref:'complaint'
     }],
-    profileimage:String,
+    role:{
+        type:String,
+        enum:['user','admin'],
+        default:'user'
+    },
 });
 
 const userModel = mongoose.model('User',userSchema);
