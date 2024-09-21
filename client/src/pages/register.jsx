@@ -6,6 +6,7 @@ function Register() {
   const [name, setname] = useState("");
   const [email, setemail] = useState("");
   const [pass, setpass] = useState("");
+  const [phone, setphone] = useState("");
   const [tasks, settasks] = useState([]);
 
   async function registeruser(e)
@@ -24,23 +25,27 @@ function Register() {
   return (
     <>
         <div className='login h-screen w-full bg-gray-200 flex justify-center place-items-center'>
-            <div className='bg-white h-[60%] w-[30%] rounded-3xl flex flex-col place-items-center justify-center gap-10'>
+            <div className='bg-white h-[65%] w-[30%] rounded-3xl flex flex-col place-items-center justify-center gap-10'>
                 <h3 className=' text-3xl font-semibold'>Register / Sign Up </h3>
 
                 <form className='flex flex-col justify-center place-items-center gap-5'onSubmit={registeruser}>
 
-                    <input className='Name ' value={name} placeholder='Enter Your Name' 
+                    <input className='Name ' value={name} placeholder='Enter Your Full Name' 
                     onChange={(e)=>{
                         setname(e.target.value);
                     }} type='text' required/>
 
                     <input className='Email ' value={email} onChange={(e)=>{
                         setemail(e.target.value);
-                    }} placeholder='Enter Your Email' type='email' required/>
+                    }} placeholder='Enter Your Email Address' type='email' required/>
 
-                    <input className='Pass ' value={pass} onChange={(e)=>{
+                    <input className='Pass' value={pass} onChange={(e)=>{
                         setpass(e.target.value);
                     }} placeholder='Enter Your Password' type='password' required/>
+
+                    <input className='Phone' value={phone} onChange={(e)=>{
+                        if(!isNaN(e.target.value)) setphone(e.target.value);
+                    }} placeholder='Enter Your Phone Number' type='text' maxLength='10' required/>
                     
                     <button type='submit' className='submit'>Register</button>
 
