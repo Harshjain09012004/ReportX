@@ -19,9 +19,11 @@ function Login() {
         if(res.data.success){
             setuser(res.data.name); setdp(res.data.photo); 
             if(res.data.role == 'admin'){
-                setredirect2(true); setisAdmin(true); setready(true);
+                setredirect2(true); 
+                setisAdmin(true); 
             } 
             else setredirect1(true);
+            setready(true);
         }
         else {alert('login failed : ' + res.data.err)}
     }

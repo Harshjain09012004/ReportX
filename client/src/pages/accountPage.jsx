@@ -31,7 +31,7 @@ import Subfooter from '../subfooter';
         {isAdmin && (
           <>
             <Header/>
-            <ProfilePage/>
+            <ProfilePage setredirect={setredirect}/>
             <div className='h-16'></div>
             <Subfooter/>
             <Footer/>
