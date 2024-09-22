@@ -8,7 +8,7 @@ function Login() {
   const [lpass, setlpass] = useState('');
   const [redirect1, setredirect1] = useState(false);
   const [redirect2, setredirect2] = useState(false);
-  const {setuser,setdp,setisAdmin} = useContext(usercontext);
+  const {setuser,setdp,setisAdmin,setready} = useContext(usercontext);
 
   async function loginhandler(e)
   {
@@ -17,9 +17,9 @@ function Login() {
         const res = await axios.post('/login',{lname,lpass});
 
         if(res.data.success){
-            setuser(res.data.name); setdp(res.data.photo);
+            setuser(res.data.name); setdp(res.data.photo); 
             if(res.data.role == 'admin'){
-                setredirect2(true); setisAdmin(true);
+                setredirect2(true); setisAdmin(true); setready(true);
             } 
             else setredirect1(true);
         }

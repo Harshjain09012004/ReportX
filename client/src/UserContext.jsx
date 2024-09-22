@@ -12,10 +12,12 @@ export function ContextProvider({children}){
 
     useEffect(()=>{
       axios.get('/profile').then((user)=>{
+        console.log("I am user Context");
         setuser(user.data.name); 
         setdp(user.data.profileimage); 
         setisAdmin(user.data.role == 'admin'); 
         setready(true);
+        console.log("I am user Context");
       })
     },[])
 
