@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react'
 import Card from '../card';
 import axios from 'axios'
 
-const Allcomplaints = () => {
+const UserComplaints = () => {
   const [allcomplaints, setallcomplaints] = useState([]);
   useEffect(() => {
-    axios.get('/allcomplaints')
+    axios.get('/userComplaints')
     .then((data)=>{
       let arr = data.data.complaints;
       setallcomplaints(arr);
@@ -37,4 +37,4 @@ const Allcomplaints = () => {
   )
 }
 
-export default Allcomplaints
+export default UserComplaints;

@@ -6,7 +6,7 @@ import { BiPaste } from "react-icons/bi";
 import Header from '../header';
 import { usercontext } from '../UserContext';
 import { Registercomplaints } from './registerComplaints';
-import Allcomplaints from './allComplaints';
+import UserComplaints from './usercomplaints';
 import ProfilePage from './profilePage';
 import Footer from '../footer';
 import Subfooter from '../subfooter';
@@ -67,7 +67,7 @@ import Subfooter from '../subfooter';
             )}
 
             {subpage === 'complaints' && (
-              <Allcomplaints/>
+              <UserComplaints/>
             )}
           </>
         )}

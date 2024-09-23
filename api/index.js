@@ -171,7 +171,7 @@ app.post('/SubmitForm',(req,res)=>{
     else res.json('Unsuccessful');
 })
 
-app.get('/allcomplaints',(req,res)=>{
+app.get('/userComplaints',(req,res)=>{
     const {token} = req.cookies;
     if(token)
     {
@@ -182,6 +182,11 @@ app.get('/allcomplaints',(req,res)=>{
         })
     }
     else res.json({});
+})
+
+app.get('/allComplaints',async (req,res)=>{
+    const complaints = await complaintModel.find({});
+    res.json(complaints);
 })
 
 app.listen(5000);

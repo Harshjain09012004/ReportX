@@ -21,13 +21,13 @@ const Card = ({det}) => {
 
           <div className='Details flex flex-col gap-3'>
             <div className='title flex flex-row gap-1'>
-              <p className='text-lg font-bold'>Title - </p>
+              <p className='text-lg font-bold'>Complaint's Title - </p>
               <p className='text-lg text-slate-600 font-medium'>{det.title}</p>
             </div>
 
             <div className='title flex flex-row place-items-center gap-1'>
               <p className='text-lg font-bold'>Description - </p>
-              <textarea className='text-lg text-slate-600 font-medium bg-white resize-none p-1' rows={1} cols={70} value={det.description} readOnly/>
+              <textarea className='text-lg text-slate-600 font-medium bg-zinc-50 resize-none p-1' rows={1} cols={70} value={det.description} readOnly/>
             </div>
 
             <div className='title flex flex-row gap-1'>
@@ -36,12 +36,12 @@ const Card = ({det}) => {
             </div>
 
             <div className='title flex flex-row gap-1'>
-              <p className='text-lg font-bold'>Date - </p>
+              <p className='text-lg font-bold'>Complaint Date - </p>
               <p className='text-lg text-slate-600 font-medium'>{det.date.slice(0,10)}</p>
             </div>
 
             <div className='title flex flex-row gap-1'>
-              <p className='text-lg font-bold'>Status - </p>
+              <p className='text-lg font-bold'>Current Status - </p>
               <p className={statusClass}>{det.status}</p>
             </div>
           </div>
