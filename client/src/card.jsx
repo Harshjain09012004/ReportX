@@ -13,7 +13,7 @@ const Card = ({det}) => {
   return (
     <>
         <div className='Card flex flex-row gap-16 place-items-center w-[75%] h-72 
-        p-1 m-8 ml-16 border border-gray-300 rounded-2xl shadow-neutral-400 shadow-lg cursor-pointer'>
+        p-1 m-8 ml-16 border border-gray-300 rounded-2xl shadow-neutral-400 shadow-lg cursor-pointer transition-all hover:shadow-zinc-500 hover:shadow-md'>
 
           <div className='Image relative w-[20%] h-[80%] bg-gray-400 rounded-2xl ml-4'>
             <img src={`http://localhost:5000/uploads/${det.photos[0]}`} className='relative rounded-2xl h-[100%] w-[100%] object-cover'/>

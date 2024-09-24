@@ -13,7 +13,7 @@ const Header = () => {
                 <img src='\src\assets\banner.png' className='w-48 h-20'/>
             </Link>
             
-            <div className='flex place-items-center gap-6'>
+            <div className='flex place-items-center gap-6 '>
 
                 <Link to={user ? (isAdmin ? '/account' : '/account/register'): '/login'} className='w-36 h-12 text-center bg-black text-white p-2 border text-lg rounded-full hover:scale-110 transition-all'>Be Fearless</Link>
 
@@ -21,7 +21,7 @@ const Header = () => {
 
                     <Menu/>
                     <Link className='flex place-items-center gap-2' to={user?'/account':'/login'}>
-                        {dp && <img src={`http://localhost:5000/uploads/${dp}`} className=' h-[32px] w-[32px] rounded-full object-cover'/>}
+                        {dp && <img src={`http://localhost:5000/uploads/${dp}`} className='h-[32px] w-[32px] rounded-full object-cover'/>}
                         {!dp && <MdAccountCircle className='text-3xl'/>}
                         <h1>{user}</h1>
                     </Link>

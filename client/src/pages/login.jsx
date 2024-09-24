@@ -6,8 +6,7 @@ import axios from 'axios';
 function Login() {
   const [lname, setlname] = useState('');
   const [lpass, setlpass] = useState('');
-  const [redirect1, setredirect1] = useState(false);
-  const [redirect2, setredirect2] = useState(false);
+  const [redirect, setredirect] = useState(false);
   const {setuser,setdp,setisAdmin,setready} = useContext(usercontext);
 
   async function loginhandler(e)
@@ -18,12 +17,8 @@ function Login() {
 
         if(res.data.success){
             setuser(res.data.name); setdp(res.data.photo); 
-            if(res.data.role == 'admin'){
-                setredirect2(true); 
-                setisAdmin(true); 
-            } 
-            else setredirect1(true);
-            setready(true);
+            if(res.data.role == 'admin') setisAdmin(true); 
+            setredirect(true); setready(true);
         }
         else {alert('login failed : ' + res.data.err)}
     }
@@ -31,8 +26,7 @@ function Login() {
     setlname(""); setlpass("");
   }
 
-  if(redirect1) {return <Navigate to={'/'}/>}
-  if(redirect2) {return <Navigate to={'/admin'}/>}
+  if(redirect) {return <Navigate to={'/'}/>}
   return (
     <>
         <div className='login h-screen w-full bg-gray-200 flex justify-center place-items-center'>

@@ -7,12 +7,12 @@ import { Link } from 'react-router-dom';
 export const Menu = () => {
   const {user,ready,isAdmin} = useContext(usercontext);
   const [pressedmenu, setpressedmenu] = useState(false);
-  const [menuclass, setmenuclass] = useState('opacity-0');
+  const [menuclass, setmenuclass] = useState('hidden');
 
   function menu(){
     setpressedmenu(!pressedmenu);
     if(menuclass) setmenuclass('');
-    else setmenuclass('opacity-0')
+    else setmenuclass('hidden')
   }
 
   return (
