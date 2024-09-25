@@ -192,7 +192,10 @@ app.get('/allComplaints',async (req,res)=>{
 
 app.get('/DownloadCSV',async (req,res)=>{
     const complaints = await complaintModel.find({});
-    const json2csvParser = new Parser();
+    const fields = ['title', 'name', 'age', 'gender', 'description', 
+    'extraInfo', 'address', 'date', 'startTime', 'endTime', 'phone', 'status'];
+
+    const json2csvParser = new Parser({ fields });
     const csv = json2csvParser.parse(complaints);
     
     res.header("Content-Type","text/csv");
