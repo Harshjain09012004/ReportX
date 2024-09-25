@@ -4,23 +4,37 @@ import { usercontext } from '../UserContext';
 import { FcCompactCamera } from "react-icons/fc";
 
 const ProfilePage = (props)=>{
-    const {user,setuser,dp,setdp,setisAdmin} = useContext(usercontext);
-    const [compldet,setcompldet] = useState([]);
+    const {user,setuser,dp,setdp,isAdmin,setisAdmin} = useContext(usercontext);
+    const [compldet,setcompldet] = useState([0,0,0,0]);
 
     useEffect(() => {
-      return () => {
-        axios.get('/allcomplaints').then(({data})=>{
-            let total = data.complaints.length; 
+        if(isAdmin){
+            axios.get('/allComplaints').then(({data})=>{
+            let total = data.length;
             let pending = 0, active = 0, closed = 0;
              
-            for(let ob of data.complaints){
+            for(let ob of data){
                 if(ob.status == 'Pending') pending++;
                 else if(ob.status == 'Closed') closed++;
                 else active++;
             }
             setcompldet([total,active,pending,closed])
-        })
-      }
+            })
+        }
+        else{
+            axios.get('/userComplaints').then(({data})=>{
+            let total = data.length; 
+            let pending = 0, active = 0, closed = 0;
+             
+            for(let ob of data){
+                if(ob.status == 'Pending') pending++;
+                else if(ob.status == 'Closed') closed++;
+                else active++;
+            }
+            setcompldet([total,active,pending,closed])
+            })
+        }
+        
     }, [])
     
 

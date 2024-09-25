@@ -44,6 +44,7 @@ const Card = ({det}) => {
               <p className='text-lg font-bold'>Current Status - </p>
               <p className={statusClass}>{det.status}</p>
             </div>
+
           </div>
 
         </div>

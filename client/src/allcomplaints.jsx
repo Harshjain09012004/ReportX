@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
-import Card from './card';
+import AdminCard from './adminCard';
 
 export const AllComplaints = () => {
   const [det, setdet] = useState([]);
@@ -9,9 +9,9 @@ export const AllComplaints = () => {
   }, [])
 
   return (
-    <div className='flex flex-col ml-7 mt-5'>
+    <div className='flex flex-col m-7'>
         {det.map((data,i)=>{
-            return <Card key={i} det={data} />
+            return <AdminCard key={i} det={data}/>
         })}
     </div>
   )

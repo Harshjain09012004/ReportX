@@ -67,6 +67,7 @@ function Admin() {
       {card && (<AllComplaints/>)}
       {table && (<StickyHeadTable/>)}
       {download && (<p>Hello</p>)}
+      
       <Subfooter/>
       <Footer/>
     </div>
