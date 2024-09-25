@@ -52,7 +52,7 @@ function Admin() {
               setcard(false); setdownload(true); settable(false);
             }}>
                 <FiDownload />
-                Download Data
+                Complaint Data
             </div>
         </div>
 

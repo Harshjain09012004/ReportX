@@ -5,7 +5,8 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const userModel = require('./models/user');
 const complaintModel = require('./models/complaint');
-const cookieparser = require('cookie-parser')
+const cookieparser = require('cookie-parser');
+const {Parser} = require('json2csv');
 const bcryptSalt = bcrypt.genSaltSync(10);
 
 require('dotenv').config();
@@ -187,6 +188,16 @@ app.get('/userComplaints',(req,res)=>{
 app.get('/allComplaints',async (req,res)=>{
     const complaints = await complaintModel.find({});
     res.json(complaints);
+})
+
+app.get('/DownloadCSV',async (req,res)=>{
+    const complaints = await complaintModel.find({});
+    const json2csvParser = new Parser();
+    const csv = json2csvParser.parse(complaints);
+    
+    res.header("Content-Type","text/csv");
+    res.attachment("Complaints_Data.csv");
+    res.send(csv);
 })
 
 app.listen(5000);
