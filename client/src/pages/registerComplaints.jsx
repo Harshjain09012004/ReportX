@@ -80,7 +80,7 @@ export const Registercomplaints = () => {
       )}
 
       {action === "new" && (
-        <form className="flex flex-col gap-10 ml-16 mb-8 mt-8">
+        <form className="flex flex-col gap-10 ml-24 mb-8 mt-10">
           {!fieldsavailable && (
             <div className=" bg-red-600 w-[43%] h-12 text-white font-bold flex gap-4 text-xl rounded-xl place-items-center px-4">
               <GiCancel

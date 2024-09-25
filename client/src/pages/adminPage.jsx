@@ -11,6 +11,7 @@ import { FiDownload } from "react-icons/fi";
 import { BsTable } from "react-icons/bs";
 import { FaAddressCard } from "react-icons/fa";
 import StickyHeadTable from '../table.jsx';
+import { Downloader } from '../downloader.jsx';
 
 function Admin() {
   const {isAdmin,ready} = useContext(usercontext);
@@ -66,7 +67,7 @@ function Admin() {
 
       {card && (<AllComplaints/>)}
       {table && (<StickyHeadTable/>)}
-      {download && (<p>Hello</p>)}
+      {download && (<Downloader/>)}
       
       <Subfooter/>
       <Footer/>

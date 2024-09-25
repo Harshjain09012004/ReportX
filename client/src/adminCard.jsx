@@ -65,13 +65,20 @@ const AdminCard = ({det,long}) => {
 
               <div className='title flex flex-row gap-1'>
                 <p className='text-lg font-bold'>Time Of Incident - </p>
-                <p className='text-lg text-slate-600 font-medium'>{det.startTime}</p>
+                <p className='text-lg text-slate-600 font-medium'>{det.startTime} To {det.endTime}</p>
               </div>
             </div>
 
-            <div className='title flex flex-row gap-1'>
-              <p className='text-lg font-bold'>Current Status - </p>
-              <p className={statusClass}>{det.status}</p>
+            <div className='flex gap-28'>
+                <div className='title flex flex-row gap-1'>
+                  <p className='text-lg font-bold'>Current Status - </p>
+                  <p className={statusClass}>{det.status}</p>
+                </div>
+
+                <div className='title flex flex-row gap-1'>
+                  <p className='text-lg font-bold'>Phone No. - </p>
+                  <p className='text-blue-400 font-medium text-lg'>{det.phone}</p>
+                </div>
             </div>
             
           </div>

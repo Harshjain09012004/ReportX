@@ -23,10 +23,10 @@ const ProfilePage = (props)=>{
         }
         else{
             axios.get('/userComplaints').then(({data})=>{
-            let total = data.length; 
+            let total = data.complaints.length; 
             let pending = 0, active = 0, closed = 0;
              
-            for(let ob of data){
+            for(let ob of data.complaints){
                 if(ob.status == 'Pending') pending++;
                 else if(ob.status == 'Closed') closed++;
                 else active++;

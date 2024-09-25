@@ -10,16 +10,16 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 
 const columns = [
-  { id: 'name', label: 'Victim Name', minWidth: 100 },
+  { id: 'title', label: 'Complaint', minWidth: 100},
+  { id: 'name', label: 'Name', minWidth: 100 },
   { id: 'age', label: 'Age', minWidth: 20 },
   { id: 'gender', label: 'Gender', minWidth: 20},
-  { id: 'title', label: 'Complaint Title', minWidth: 100},
   { id: 'description', label: 'Description', minWidth: 200},
   { id: 'extraInfo', label: 'More Information', minWidth: 120},
   { id: 'date', label: 'Date', minWidth: 50},
   { id: 'startTime', label: 'Time', minWidth: 50},
   { id: 'address', label: 'Location', minWidth: 120},
-  { id: 'phone', label: 'Phone No.', minWidth: 50},
+  { id: 'phone', label: 'Phone', minWidth: 50},
   { id: 'status', label: 'Status', minWidth: 50},
 
 ];
@@ -44,10 +44,10 @@ export default function StickyHeadTable() {
   };
 
   return (
-    <Paper sx={{ width: '90%', margin:5, marginLeft:10, overflow: 'hidden' }}>
+    <Paper sx={{ width: '90%', margin:5, marginLeft:10, overflow: 'hidden'}} >
       <TableContainer sx={{ maxHeight: 5000 }}>
-        <Table stickyHeader aria-label="sticky table">
-          <TableHead>
+        <Table stickyHeader aria-label="sticky table" >
+          <TableHead >
             <TableRow>
               {columns.map((column) => (
                 <TableCell
@@ -55,7 +55,7 @@ export default function StickyHeadTable() {
                   align={column.align}
                   style={{ minWidth: column.minWidth }}
                 >
-                  {column.label}
+                  <p className='font-bold text-base'>{column.label}</p>
                 </TableCell>
               ))}
             </TableRow>
