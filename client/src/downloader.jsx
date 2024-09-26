@@ -29,7 +29,7 @@ export const Downloader = () => {
       },500);
     })
     .catch((error)=>{
-      console.error("Error Fetching Data",error);
+      alert("Data Cannot Be Fetched"); setloading(false);
     })
   }
 
@@ -53,7 +53,9 @@ export const Downloader = () => {
         setloading2(false);
       },500)
     })
-    
+    .catch((error)=>{
+      alert("Data Cannot Be Fetched"); setloading2(false);
+    })
   }
 
   return (
