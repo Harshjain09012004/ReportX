@@ -10,6 +10,8 @@ import { FiSearch } from "react-icons/fi";
 import { FiDownload } from "react-icons/fi";
 import { BsTable } from "react-icons/bs";
 import { FaAddressCard } from "react-icons/fa";
+import { BsSortDownAlt } from "react-icons/bs";
+import { TbCategory2 } from "react-icons/tb";
 import StickyHeadTable from '../table.jsx';
 import { Downloader } from '../downloader.jsx';
 
@@ -20,10 +22,15 @@ function Admin() {
   const [card, setcard] = useState(true);
   const [download, setdownload] = useState(false);
   const [menuVisibility, setmenuVisibility] = useState('hidden');
+  const [rotation, setrotation] = useState(0);
 
   function menuHandler(){
-    if(menuVisibility) setmenuVisibility('');
-    else setmenuVisibility('hidden');
+    if(menuVisibility){
+      setmenuVisibility(''); setrotation(180);
+    }
+    else{
+      setmenuVisibility('hidden'); setrotation(0);
+    }
   }
 
   function Apply(){
@@ -41,13 +48,16 @@ function Admin() {
 
         <div className='w-28 p-2 px-3 m-3 mx-24 flex gap-4 rounded-full place-items-center border border-violet-100 bg-white shadow-slate-400 shadow-md hover:scale-105 transition-all cursor-pointer' onClick={menuHandler}>
           <p className='text-lg text-zinc-700'>Filter</p>
-          <IoFilter className='text-2xl'/>
+          <IoFilter className={`text-2xl transition-all duration-300 rotate-${rotation}`}/>
         </div>
 
-        <div className={`MenuBar absolute top-24 left-24 p-3 w-72 flex flex-col place-items-center gap-6 pt-2 bg-white border border-gray-300 shadow-md shadow-zinc-400 rounded-2xl transition-all ${menuVisibility}`}>
+        <div className={`MenuBar absolute top-24 left-24 pt-4 pb-4 w-72 flex flex-col place-items-center gap-6 bg-white border border-gray-300 shadow-md shadow-zinc-400 rounded-2xl transition-all ${menuVisibility}`}>
 
-          <div className='SortBy flex flex-col gap-2'>
-            <p className='text-lg text-center font-semibold'>Sort By</p>
+          <div className='SortBy flex flex-col gap-3'>
+            <div className='flex place-items-center justify-center gap-2 text-lg font-semibold'>
+              <p>Sort By</p> 
+              <BsSortDownAlt className='text-xl'/>
+            </div>
 
             <div className='flex flex-wrap gap-x-6 gap-y-2 justify-center'>
               <label className='flex gap-2'>
@@ -77,8 +87,11 @@ function Admin() {
             </div>
           </div>
 
-          <div className='SelectCategory flex flex-col gap-2'>
-            <p className='text-lg text-center font-semibold'>Categories</p>
+          <div className='SelectCategory flex flex-col gap-3'>
+            <div className='flex place-items-center justify-center gap-2 text-lg font-semibold'>
+              <p>Categories</p> 
+              <TbCategory2/>
+            </div>
 
             <div className='flex flex-wrap gap-x-6 gap-y-2 justify-center'>
               <label className='flex gap-2'>
