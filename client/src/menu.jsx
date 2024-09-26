@@ -17,7 +17,7 @@ export const Menu = () => {
 
   return (
     <div>
-        <div className={`absolute bg-zinc-200 top-[60px] w-48 max-h-40 text-md rounded-2xl transition-all z-10 shadow-md shadow-zinc-400 ${menuclass}`}>
+        <div className={`absolute bg-zinc-200 top-[60px] w-48 max-h-40 text-md rounded-2xl transition-all z-20 shadow-md shadow-zinc-400 ${menuclass}`}>
         
             {!user && (
                 <div className='flex flex-col gap-2 mt-4 mb-4'>

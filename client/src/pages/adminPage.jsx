@@ -19,18 +19,112 @@ function Admin() {
   const [table, settable] = useState(false);
   const [card, setcard] = useState(true);
   const [download, setdownload] = useState(false);
+  const [menuVisibility, setmenuVisibility] = useState('hidden');
+
+  function menuHandler(){
+    if(menuVisibility) setmenuVisibility('');
+    else setmenuVisibility('hidden');
+  }
+
+  function Apply(){
+    return 0;
+  }
 
   if(ready && (!user || !isAdmin)) {return <Navigate to={'/'}/>}
 
   return (
+
     <div className='h-[100%] w-[100%] bg-zinc-50'>
       <Header/>
 
       <div className='AdminHeader mt-3 flex place-items-center justify-between sticky top-0 z-10 bg-zinc-50 h-24  bg-opacity-85'>
 
-        <div className='w-28 p-2 px-3 m-3 mx-24 flex gap-4 rounded-full place-items-center border border-violet-100 bg-white shadow-slate-400 shadow-md hover:scale-110 transition-all cursor-pointer'>
+        <div className='w-28 p-2 px-3 m-3 mx-24 flex gap-4 rounded-full place-items-center border border-violet-100 bg-white shadow-slate-400 shadow-md hover:scale-105 transition-all cursor-pointer' onClick={menuHandler}>
           <p className='text-lg text-zinc-700'>Filter</p>
           <IoFilter className='text-2xl'/>
+        </div>
+
+        <div className={`MenuBar absolute top-24 left-24 p-3 w-72 flex flex-col place-items-center gap-6 pt-2 bg-white border border-gray-300 shadow-md shadow-zinc-400 rounded-2xl transition-all ${menuVisibility}`}>
+
+          <div className='SortBy flex flex-col gap-2'>
+            <p className='text-lg text-center font-semibold'>Sort By</p>
+
+            <div className='flex flex-wrap gap-x-6 gap-y-2 justify-center'>
+              <label className='flex gap-2'>
+                <p>Name</p>
+                <input type='checkbox'/>
+              </label>
+
+              <label className='flex gap-2'>
+                <p>Age</p>
+                <input type='checkbox'/>
+              </label>
+
+              <label className='flex gap-2'>
+                <p>Title</p>
+                <input type='checkbox'/>
+              </label>
+
+              <label className='flex gap-2'>
+                <p>Date</p>
+                <input type='checkbox'/>
+              </label>
+
+              <label className='flex gap-2'>
+                <p>Time</p>
+                <input type='checkbox'/>
+              </label>
+            </div>
+          </div>
+
+          <div className='SelectCategory flex flex-col gap-2'>
+            <p className='text-lg text-center font-semibold'>Categories</p>
+
+            <div className='flex flex-wrap gap-x-6 gap-y-2 justify-center'>
+              <label className='flex gap-2'>
+                <p>Theft</p>
+                <input type='checkbox'/>
+              </label>
+
+              <label className='flex gap-2'>
+                <p>Threat</p>
+                <input type='checkbox'/>
+              </label>
+
+              <label className='flex gap-2'>
+                <p>Hacking</p>
+                <input type='checkbox'/>
+              </label>
+
+              <label className='flex gap-2'>
+                <p>Violence</p>
+                <input type='checkbox'/>
+              </label>
+
+              <label className='flex gap-2'>
+                <p>Scam</p>
+                <input type='checkbox'/>
+              </label>
+
+              <label className='flex gap-2'>
+                <p>Bribery</p>
+                <input type='checkbox'/>
+              </label>
+
+              <label className='flex gap-2'>
+                <p>HateSpeech</p>
+                <input type='checkbox'/>
+              </label>
+
+              <label className='flex gap-2'>
+                <p>Property</p>
+                <input type='checkbox'/>
+              </label>
+            </div>
+          </div>
+
+          <div className='Apply h-11 w-28 flex place-items-center justify-center bg-black rounded-full text-white font-medium active:scale-105 transition-all cursor-pointer'>Apply</div>
+
         </div>
 
         <div className='flex gap-14 justify-center place-items-center text-lg font-semibold'>
