@@ -83,10 +83,21 @@ const ProfilePage = (props)=>{
             </div>
 
             <div className='w-[72%] h-[330px] mt-10 p-10 shadow-slate-300 shadow-xl rounded-2xl border border-gray-200 grid grid-cols-2 text-[26px] font-bold text-center'>
-                <p className='border border-slate-300 place-content-center rounded-3xl m-2 text-green-400'><p className=' inline text-zinc-600'>Total Complaints</p> {compldet[0]}</p>
-                <p className='border border-slate-300 place-content-center text-green-400 rounded-3xl m-2'><p className=' inline text-zinc-600'>Active Complaints </p>{compldet[1]}</p>
-                <p className='border border-slate-300 place-content-center text-rose-400 rounded-3xl m-2'><p className=' inline text-zinc-600'>Pending Complaints</p> {compldet[2]}</p>
-                <p className='border border-slate-300 place-content-center text-rose-400 rounded-3xl m-2'><p className=' inline text-zinc-600'>Closed Complaints</p> {compldet[3]}</p>
+                <div className='gap-1 border border-slate-300 place-content-center rounded-3xl m-2'>
+                    <p className=' inline text-zinc-600'>Total Complaints </p> <p className='inline text-green-400'>{compldet[0]}</p>
+                </div>
+
+                <div className='border border-slate-300 place-content-center text-green-400 rounded-3xl m-2'>
+                    <p className=' inline text-zinc-600'>Active Complaints </p><p className='inline text-green-400'>{compldet[1]}</p>
+                </div>
+
+                <div className='border border-slate-300 place-content-center text-rose-400 rounded-3xl m-2'>
+                    <p className=' inline text-zinc-600'>Pending Complaints </p> <p className='inline text-red-400'>{compldet[2]}</p>
+                </div>
+                
+                <div className='border border-slate-300 place-content-center text-rose-400 rounded-3xl m-2'>
+                    <p className=' inline text-zinc-600'>Closed Complaints </p><p className='inline text-red-400'>{compldet[3]}</p>
+                </div>
             </div>
         </div>
     )
