@@ -26,9 +26,9 @@ function Admin() {
     <div className='h-[100%] w-[100%] bg-zinc-50'>
       <Header/>
 
-      <div className='mt-3 flex place-items-center justify-between'>
+      <div className='AdminHeader mt-3 flex place-items-center justify-between sticky top-0 z-10 bg-zinc-50 h-24  bg-opacity-85'>
 
-        <div className='w-28 p-2 px-3 m-3 mx-24 flex gap-4 rounded-full place-items-center border border-slate-100 shadow-slate-400 shadow-md hover:scale-110 transition-all cursor-pointer'>
+        <div className='w-28 p-2 px-3 m-3 mx-24 flex gap-4 rounded-full place-items-center border border-violet-100 bg-white shadow-slate-400 shadow-md hover:scale-110 transition-all cursor-pointer'>
           <p className='text-lg text-zinc-700'>Filter</p>
           <IoFilter className='text-2xl'/>
         </div>
@@ -56,8 +56,8 @@ function Admin() {
             </div>
         </div>
 
-        <div className='w-56 h-11 border shadow-md shadow-slate-400 rounded-full flex place-items-center gap-2 mr-20 hover:scale-105 transition-all'>
-          <input type='text' placeholder='Search Here' className='w-44 outline-none rounded-full h-9 bg-zinc-50 px-5' value={search}  onChange={(e)=>{
+        <div className='w-56 h-11 border border-x-red-200 border-y-blue-200  shadow-md shadow-slate-400 rounded-full flex place-items-center gap-2 mr-20 hover:scale-105 transition-all bg-white'>
+          <input type='text' placeholder='Search Here' className='w-44 placeholder:text-gray-900 outline-none rounded-full h-9 bg-white px-5' value={search}  onChange={(e)=>{
               setsearch(e.target.value);
           }}/>
           <FiSearch className='text-2xl active:scale-110 transition-all cursor-pointer'/>
