@@ -57,8 +57,8 @@ export const Downloader = () => {
   }
 
   return (
-    <div className='flex gap-24 justify-evenly place-items-center m-24 h-40'>
-      <div className='JSONDownloader flex flex-col gap-8 justify-center place-items-center'>
+    <div className='flex justify-evenly place-items-center m-24 mb-28 h-40'>
+      <div className='JSONDownloader flex flex-col gap-8 justify-center place-items-center p-10 border shadow-gray-400 shadow-lg rounded-3xl hover:scale-105 transition-all'>
         <a href={jsonUrl} id='jsonLink' download={'Complaints_Data.json'} className='hidden'></a>
 
         {!loading && <p className='font-medium text-lg'>Download JSON File Of  All Complaints</p>}
@@ -68,7 +68,7 @@ export const Downloader = () => {
         <div className='Button bg-black rounded-3xl px-8 py-5 hover:scale-105 w-60 transition-transform cursor-pointer text-white font-semibold text-lg' onClick={downloadJSON}>Download JSON File</div>
       </div>
 
-      <div className='CSVDownloader flex flex-col place-items-center gap-8'>
+      <div className='CSVDownloader flex flex-col place-items-center gap-8 p-10 border shadow-gray-400 shadow-lg rounded-3xl hover:scale-105 transition-all'>
         <a href={csvUrl} id='csvLink' download={'Complaints_Data.csv'} className='hidden'></a>
 
         {!loading2 && <p className='font-medium text-lg'>Download CSV File Of All Complaints</p>}

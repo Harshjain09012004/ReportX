@@ -14,14 +14,14 @@ import StickyHeadTable from '../table.jsx';
 import { Downloader } from '../downloader.jsx';
 
 function Admin() {
-  const {isAdmin,ready} = useContext(usercontext);
+  const {isAdmin,ready,user} = useContext(usercontext);
   const [search, setsearch] = useState('');
   const [table, settable] = useState(false);
   const [card, setcard] = useState(true);
   const [download, setdownload] = useState(false);
 
-  if(ready && !isAdmin) {return <Navigate to={'/'} />}
-  
+  if(ready && (!user || !isAdmin)) {return <Navigate to={'/'}/>}
+
   return (
     <div className='h-[100%] w-[100%] bg-zinc-50'>
       <Header/>

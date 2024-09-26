@@ -11,10 +11,12 @@ export function ContextProvider({children}){
     const [isAdmin, setisAdmin] = useState(false);
 
     useEffect(()=>{
-      axios.get('/profile').then((user)=>{
-        setuser(user.data.name); 
-        setdp(user.data.profileimage); 
-        setisAdmin(user.data.role == 'admin'); 
+      axios.get('/profile').then(({data})=>{
+        if(data){
+          setuser(data.name); 
+          setdp(data.profileimage); 
+          setisAdmin(data.role == 'admin'); 
+        }
         setready(true);
       })
     },[])
