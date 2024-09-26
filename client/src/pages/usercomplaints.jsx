@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Card from '../card';
 import axios from 'axios'
+import { NoDataFound } from '../noDataFound.jsx'
 
 const UserComplaints = () => {
   const [allcomplaints, setallcomplaints] = useState([]);
@@ -20,11 +21,7 @@ const UserComplaints = () => {
   return (
     <div>
       {allcomplaints.length == 0 && (
-        <div className='flex justify-center'>
-          <div className='text-center text-3xl rounded-3xl shadow-md shadow-zinc-300 font-medium bg-slate-200 p-24 m-6'>
-          No Complaints Found!
-          </div>
-        </div>
+        <NoDataFound/>
       )}
       {allcomplaints.length > 0 && (
         <div>
