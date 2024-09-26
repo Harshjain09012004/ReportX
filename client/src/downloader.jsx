@@ -5,45 +5,76 @@ import { ProgressBar } from './progressBar';
 export const Downloader = () => {
   const [jsonUrl, setjsonUrl] = useState('');
   const [csvUrl, setcsvUrl] = useState('');
-  const [percent, setpercent] = useState(10);
-  const [percent2, setpercent2] = useState(10);
+  const [progress, setprogress] = useState(0);
+  const [progress2, setprogress2] = useState(0);
+  const [loading, setloading] = useState(false);
+  const [loading2, setloading2] = useState(false);
 
-  async function downloadJSON(){
-    // Since API By Default responds in JSON So We used and existing API rather than creating new one
-    const {data} = await axios.get('/allComplaints');
-    const jsonData = JSON.stringify(data);
-    const blob = new Blob([jsonData],{type:'application/json'});
+  function downloadJSON(){
+    setloading(true); setprogress(0);
+    axios.get('/allComplaints',
+      {onDownloadProgress:(progressEvent)=>{
+        const progressCompleted = Math.round((progressEvent.loaded * 100)/progressEvent.total);
+        setprogress(progressCompleted);
+      }
+    })
+    .then(({data})=>{
+      const jsonData = JSON.stringify(data);
+      const blob = new Blob([jsonData],{type:'application/json'});
 
-    setpercent(90); setjsonUrl(window.URL.createObjectURL(blob));
-    setTimeout(()=>{
-      document.getElementById('jsonLink').click();
-    },1000);
+      setjsonUrl(window.URL.createObjectURL(blob));
+      setTimeout(()=>{
+        document.getElementById('jsonLink').click();
+        setloading(false);
+      },500);
+    })
+    .catch((error)=>{
+      console.error("Error Fetching Data",error);
+    })
   }
 
-  async function downloadCSV(){
-    const response = await axios.get('/DownloadCSV',{responseType:'blob'});
-    const blob = response.data;
+  function downloadCSV(){
+    setloading2(true); setprogress2(0);
+    axios({
+      method: 'get', url: '/DownloadCSV', responseType: 'blob',
+      onDownloadProgress: (progressEvent) => {
+        if (progressEvent.total) {
+          const progressCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+          setprogress2(progressCompleted);
+        }
+      },
+    })
+    .then((response)=>{
+      const blob = response.data;
+      setcsvUrl(window.URL.createObjectURL(blob));
+
+      setTimeout(()=>{
+        document.getElementById('csvLink').click();
+        setloading2(false);
+      },500)
+    })
     
-    setpercent2(90); setcsvUrl(window.URL.createObjectURL(blob));
-    setTimeout(()=>{
-      console.log(csvUrl);
-      document.getElementById('csvLink').click();
-    },1000)
   }
 
   return (
     <div className='flex gap-24 justify-evenly place-items-center m-24 h-40'>
-      <div className='JSONDownloader flex flex-col gap-16 justify-center place-items-center'>
+      <div className='JSONDownloader flex flex-col gap-8 justify-center place-items-center'>
         <a href={jsonUrl} id='jsonLink' download={'Complaints_Data.json'} className='hidden'></a>
 
-        <ProgressBar percent={percent} setpercent={setpercent}/>
+        {!loading && <p className='font-medium text-lg'>Download JSON File Of  All Complaints</p>}
+
+        {loading && <ProgressBar progress={progress} setprogress={setprogress}/>}
+      
         <div className='Button bg-black rounded-3xl px-8 py-5 hover:scale-105 w-60 transition-transform cursor-pointer text-white font-semibold text-lg' onClick={downloadJSON}>Download JSON File</div>
       </div>
 
-      <div className='CSVDownloader flex flex-col place-items-center gap-16'>
+      <div className='CSVDownloader flex flex-col place-items-center gap-8'>
         <a href={csvUrl} id='csvLink' download={'Complaints_Data.csv'} className='hidden'></a>
 
-        <ProgressBar percent={percent2} setpercent={setpercent2}/>
+        {!loading2 && <p className='font-medium text-lg'>Download CSV File Of All Complaints</p>}
+
+        {loading2 && <ProgressBar progress={progress2} setprogress={setprogress2}/>}
+      
         <div className='Button bg-black rounded-3xl px-8 py-5 hover:scale-105 transition-transform cursor-pointer text-white font-semibold text-lg' onClick={downloadCSV}>Download CSV File</div>
       </div>
     </div>
