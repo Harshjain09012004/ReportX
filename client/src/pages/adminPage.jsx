@@ -24,6 +24,9 @@ function Admin() {
   const [menuVisibility, setmenuVisibility] = useState('hidden');
   const [rotation, setrotation] = useState(0);
 
+  const [sortBy, setsortBy] = useState({name:false,age:false,title:false,date:false,time:false});
+  const [searchBy, setsearchBy] = useState({theft:false,threat:false,hacking:false,violence:false,scam:false,bribery:false,hateSpeech:false,property:false});
+
   function menuHandler(){
     if(menuVisibility){
       setmenuVisibility(''); setrotation(180);
@@ -46,7 +49,7 @@ function Admin() {
 
       <div className='AdminHeader mt-3 flex place-items-center justify-between sticky top-0 z-10 bg-zinc-50 h-24  bg-opacity-85'>
 
-        <div className='w-28 p-2 px-3 m-3 mx-24 flex gap-4 rounded-full place-items-center border border-violet-100 bg-white shadow-slate-400 shadow-md hover:scale-105 transition-all cursor-pointer' onClick={menuHandler}>
+        <div className='Filter w-28 p-2 px-3 m-3 mx-24 flex gap-4 rounded-full place-items-center border border-violet-100 bg-white shadow-slate-400 shadow-md hover:scale-105 transition-all cursor-pointer' onClick={menuHandler}>
           <p className='text-lg text-zinc-700'>Filter</p>
           <IoFilter className={`text-2xl transition-all duration-300 rotate-${rotation}`}/>
         </div>
@@ -163,7 +166,7 @@ function Admin() {
             </div>
         </div>
 
-        <div className='w-56 h-11 border border-x-red-200 border-y-blue-200  shadow-md shadow-slate-400 rounded-full flex place-items-center gap-2 mr-20 hover:scale-105 transition-all bg-white'>
+        <div className='Search w-56 h-11 border border-x-red-200 border-y-blue-200  shadow-md shadow-slate-400 rounded-full flex place-items-center gap-2 mr-20 hover:scale-105 transition-all bg-white'>
           <input type='text' placeholder='Search Here' className='w-44 placeholder:text-gray-900 outline-none rounded-full h-9 bg-white px-5' value={search}  onChange={(e)=>{
               setsearch(e.target.value);
           }}/>
