@@ -16,13 +16,16 @@ import { Downloader } from '../downloader.jsx';
 
 function Admin() {
   const {isAdmin,ready,user} = useContext(usercontext);
-  const [search, setsearch] = useState('');
   const [table, settable] = useState(false);
   const [card, setcard] = useState(true);
   const [download, setdownload] = useState(false);
   const [det, setdet] = useState([]);
 
-  const [sortBy, setsortBy] = useState({name:false,age:false,title:false,date:false,time:false,gender:false});
+  const [field,setfield] = useState('');
+  const [search, setsearch] = useState('');
+  const [type, settype] = useState('text');
+
+  const [sortBy, setsortBy] = useState({name:false,age:false,title:false,date:false,startTime:false,gender:false});
 
   const [searchBy, setsearchBy] = useState({theft:false,threat:false,accounthacking:false,violence:false,scam:false,bribery:false,childmarriage:false,hatespeech:false,property:false});
 
@@ -60,10 +63,31 @@ function Admin() {
             </div>
         </div>
 
-        <div className='Search w-56 h-11 border border-x-red-200 border-y-blue-200  shadow-md shadow-slate-400 rounded-full flex place-items-center gap-2 mr-20 hover:scale-105 transition-all bg-white'>
-          <input type='text' placeholder='Search Here' className='w-44 placeholder:text-gray-900 outline-none rounded-full h-9 bg-white px-5' value={search}  onChange={(e)=>{
+        <div className='Search w-72 h-11 border border-x-red-200 border-y-blue-200  shadow-md shadow-slate-400 rounded-full flex place-items-center gap-1 mr-20 px-2 hover:scale-105 transition-all bg-white'>
+
+          <select onChange={(e)=>{
+            const inpField = e.target.value; 
+            setfield(inpField); setsearch('');
+
+            if(inpField=='age') settype('number');
+            else if(inpField=='date') settype('date');
+            else if(inpField=='startTime') settype('time')
+            else settype('text');
+          }} 
+          className='bg-white outline-none w-20 p-0 text-center rounded-none appearance-none border-gray-300 border-r-2 font-semibold cursor-pointer'>
+            <option value={'name'}>Name</option>
+            <option value={'age'}>Age</option>
+            <option value={'title'}>Title</option>
+            <option value={'date'}>Date</option>
+            <option value={'startTime'}>Time</option>
+            <option value={'status'}>Status</option>
+            <option value={'address'}>Location</option>
+          </select>
+
+          <input type={`${type}`} placeholder='Search Here' className='w-36 placeholder:text-gray-900 outline-none rounded-full h-9 bg-white px-4' value={search}  onChange={(e)=>{
               setsearch(e.target.value);
           }}/>
+
           <FiSearch className='text-2xl active:scale-110 transition-all cursor-pointer'/>
         </div>
 

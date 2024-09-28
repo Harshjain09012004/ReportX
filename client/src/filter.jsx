@@ -23,14 +23,14 @@ export const Filter = ({search,setsearch,sort,setsort,setdet}) => {
     const selectedTags2 = Object.keys(sort).filter(tag => sort[tag]);
 
     const { data } = await axios.post('/filterComplaints', { search: selectedTags , sort: selectedTags2});
-    setdet(data); setmenuVisibility('hidden');
+    setdet(data); setmenuVisibility('hidden'); setrotation(0);
   }
 
   return (
     <div>
       <div className='Filter w-28 p-2 px-3 m-3 mx-24 flex gap-4 rounded-full place-items-center border border-violet-100 bg-white shadow-slate-400 shadow-md hover:scale-105 transition-all cursor-pointer' onClick={menuHandler}>
           <p className='text-lg text-zinc-700'>Filter</p>
-          <IoFilter className={`text-2xl transition-all rotate-${rotation}`}/>
+          <IoFilter className={`text-2xl transition-all ${rotation == 180 ? "rotate-180" : "rotate-0"}`}/>
       </div>
 
       <div className={`MenuBar absolute top-24 left-24 pt-4 pb-4 w-72 flex flex-col place-items-center gap-6 bg-white border border-gray-300 shadow-md shadow-zinc-400 rounded-2xl transition-all ${menuVisibility}`}>
@@ -72,8 +72,8 @@ export const Filter = ({search,setsearch,sort,setsort,setdet}) => {
 
               <label className='flex gap-2'>
                 <p>Time</p>
-                <input type='checkbox' checked={sort.time} onChange={(e)=>{
-                  setsort({...sort,time:!sort.time})
+                <input type='checkbox' checked={sort.startTime} onChange={(e)=>{
+                  setsort({...sort,startTime:!sort.startTime})
                 }}/>
               </label>
 
