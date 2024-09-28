@@ -20,8 +20,10 @@ export const Filter = ({search,setsearch,sort,setsort,setdet}) => {
   async function Apply(e){
     const selectedTags = Object.keys(search).filter(tag => search[tag]).map(tag => tag.toLowerCase()); 
     
-    const { data } = await axios.post('/filterComplaints', { search: selectedTags });
-    setdet(data);
+    const selectedTags2 = Object.keys(sort).filter(tag => sort[tag]);
+
+    const { data } = await axios.post('/filterComplaints', { search: selectedTags , sort: selectedTags2});
+    setdet(data); setmenuVisibility('hidden');
   }
 
   return (
@@ -72,6 +74,13 @@ export const Filter = ({search,setsearch,sort,setsort,setdet}) => {
                 <p>Time</p>
                 <input type='checkbox' checked={sort.time} onChange={(e)=>{
                   setsort({...sort,time:!sort.time})
+                }}/>
+              </label>
+
+              <label className='flex gap-2'>
+                <p>Gender</p>
+                <input type='checkbox' checked={sort.gender} onChange={(e)=>{
+                  setsort({...sort,gender:!sort.gender})
                 }}/>
               </label>
             </div>

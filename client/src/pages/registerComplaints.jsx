@@ -32,10 +32,14 @@ export const Registercomplaints = () => {
   async function submitHandler(e)
   {
     e.preventDefault();
+    const targetTags = Object.keys(tags).filter(tag => tags[tag]);
+    const targetObject = {};
+    targetTags.forEach((tag)=>{targetObject[tag] = true;})
+
     const allfields = {
       name,age,gender,title,address,photos,
       description,extrainfo,
-      checkin,checkout,tags,phone,date,
+      checkin,checkout,targetObject,phone,date,
     };
 
     let details = true;

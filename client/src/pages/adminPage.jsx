@@ -22,7 +22,8 @@ function Admin() {
   const [download, setdownload] = useState(false);
   const [det, setdet] = useState([]);
 
-  const [sortBy, setsortBy] = useState({name:false,age:false,title:false,date:false,time:false});
+  const [sortBy, setsortBy] = useState({name:false,age:false,title:false,date:false,time:false,gender:false});
+
   const [searchBy, setsearchBy] = useState({theft:false,threat:false,accounthacking:false,violence:false,scam:false,bribery:false,childmarriage:false,hatespeech:false,property:false});
 
   if(ready && (!user || !isAdmin)) {return <Navigate to={'/'}/>}

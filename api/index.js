@@ -160,7 +160,7 @@ app.post('/SubmitForm',(req,res)=>{
             extraInfo:det.extrainfo,
             address:det.address, 
             date:det.date,
-            tags:det.tags,
+            tags:det.targetObject,
             photos:det.photos, 
             startTime:det.checkin,
             endTime:det.checkout,
@@ -191,13 +191,19 @@ app.get('/allComplaints',async (req,res)=>{
 })
 
 app.post('/filterComplaints',async (req,res)=>{
-  const searchTags = req.body.search;
-  console.log(searchTags);
-  const query = {
-    $or: searchTags.map(tag => ({ [`tags.${tag}`]: true }))
-  };
-  console.log(query);
-  const data = await complaintModel.find(query);
+  const searchTags = req.body.search; 
+  let searchQuery = {};
+
+  if(searchTags.length>0){
+    searchQuery = {
+     $or: searchTags.map(tag => ({ [`tags.${tag}`]: true }))
+    };
+  }
+
+  const sortTags = req.body.sort; const sortQuery = {};
+  sortTags.forEach(tag => {sortQuery[tag] = 1;});
+
+  const data = await complaintModel.find(searchQuery).sort(sortQuery);
   res.json(data);
 })
 
