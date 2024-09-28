@@ -5,13 +5,12 @@ import { Navigate } from 'react-router-dom';
 import Footer from '../footer';
 import Subfooter from '../subfooter';
 import { AllComplaints } from '../allcomplaints.jsx';
-import { IoFilter } from "react-icons/io5";
+import { Filter } from '../filter.jsx';
+
 import { FiSearch } from "react-icons/fi";
 import { FiDownload } from "react-icons/fi";
 import { BsTable } from "react-icons/bs";
 import { FaAddressCard } from "react-icons/fa";
-import { BsSortDownAlt } from "react-icons/bs";
-import { TbCategory2 } from "react-icons/tb";
 import StickyHeadTable from '../table.jsx';
 import { Downloader } from '../downloader.jsx';
 
@@ -21,24 +20,10 @@ function Admin() {
   const [table, settable] = useState(false);
   const [card, setcard] = useState(true);
   const [download, setdownload] = useState(false);
-  const [menuVisibility, setmenuVisibility] = useState('hidden');
-  const [rotation, setrotation] = useState(0);
+  const [det, setdet] = useState([]);
 
   const [sortBy, setsortBy] = useState({name:false,age:false,title:false,date:false,time:false});
-  const [searchBy, setsearchBy] = useState({theft:false,threat:false,hacking:false,violence:false,scam:false,bribery:false,hateSpeech:false,property:false});
-
-  function menuHandler(){
-    if(menuVisibility){
-      setmenuVisibility(''); setrotation(180);
-    }
-    else{
-      setmenuVisibility('hidden'); setrotation(0);
-    }
-  }
-
-  function Apply(){
-    return 0;
-  }
+  const [searchBy, setsearchBy] = useState({theft:false,threat:false,accounthacking:false,violence:false,scam:false,bribery:false,childmarriage:false,hatespeech:false,property:false});
 
   if(ready && (!user || !isAdmin)) {return <Navigate to={'/'}/>}
 
@@ -49,99 +34,7 @@ function Admin() {
 
       <div className='AdminHeader mt-3 flex place-items-center justify-between sticky top-0 z-10 bg-zinc-50 h-24  bg-opacity-85'>
 
-        <div className='Filter w-28 p-2 px-3 m-3 mx-24 flex gap-4 rounded-full place-items-center border border-violet-100 bg-white shadow-slate-400 shadow-md hover:scale-105 transition-all cursor-pointer' onClick={menuHandler}>
-          <p className='text-lg text-zinc-700'>Filter</p>
-          <IoFilter className={`text-2xl transition-all duration-300 rotate-${rotation}`}/>
-        </div>
-
-        <div className={`MenuBar absolute top-24 left-24 pt-4 pb-4 w-72 flex flex-col place-items-center gap-6 bg-white border border-gray-300 shadow-md shadow-zinc-400 rounded-2xl transition-all ${menuVisibility}`}>
-
-          <div className='SortBy flex flex-col gap-3'>
-            <div className='flex place-items-center justify-center gap-2 text-lg font-semibold'>
-              <p>Sort By</p> 
-              <BsSortDownAlt className='text-xl'/>
-            </div>
-
-            <div className='flex flex-wrap gap-x-6 gap-y-2 justify-center'>
-              <label className='flex gap-2'>
-                <p>Name</p>
-                <input type='checkbox'/>
-              </label>
-
-              <label className='flex gap-2'>
-                <p>Age</p>
-                <input type='checkbox'/>
-              </label>
-
-              <label className='flex gap-2'>
-                <p>Title</p>
-                <input type='checkbox'/>
-              </label>
-
-              <label className='flex gap-2'>
-                <p>Date</p>
-                <input type='checkbox'/>
-              </label>
-
-              <label className='flex gap-2'>
-                <p>Time</p>
-                <input type='checkbox'/>
-              </label>
-            </div>
-          </div>
-
-          <div className='SelectCategory flex flex-col gap-3'>
-            <div className='flex place-items-center justify-center gap-2 text-lg font-semibold'>
-              <p>Categories</p> 
-              <TbCategory2/>
-            </div>
-
-            <div className='flex flex-wrap gap-x-6 gap-y-2 justify-center'>
-              <label className='flex gap-2'>
-                <p>Theft</p>
-                <input type='checkbox'/>
-              </label>
-
-              <label className='flex gap-2'>
-                <p>Threat</p>
-                <input type='checkbox'/>
-              </label>
-
-              <label className='flex gap-2'>
-                <p>Hacking</p>
-                <input type='checkbox'/>
-              </label>
-
-              <label className='flex gap-2'>
-                <p>Violence</p>
-                <input type='checkbox'/>
-              </label>
-
-              <label className='flex gap-2'>
-                <p>Scam</p>
-                <input type='checkbox'/>
-              </label>
-
-              <label className='flex gap-2'>
-                <p>Bribery</p>
-                <input type='checkbox'/>
-              </label>
-
-              <label className='flex gap-2'>
-                <p>HateSpeech</p>
-                <input type='checkbox'/>
-              </label>
-
-              <label className='flex gap-2'>
-                <p>Property</p>
-                <input type='checkbox'/>
-              </label>
-            </div>
-          </div>
-
-          <div className='Apply h-11 w-28 flex place-items-center justify-center bg-black rounded-full text-white font-medium active:scale-105 transition-all cursor-pointer'>Apply</div>
-
-        </div>
+        <Filter sort={sortBy} setsort={setsortBy} search={searchBy} setsearch={setsearchBy} setdet={setdet} />
 
         <div className='flex gap-14 justify-center place-items-center text-lg font-semibold'>
             <div className={`py-2 px-5 flex gap-4 items-center rounded-3xl cursor-pointer transition-all hover:scale-105 ${card?'bg-zinc-900 text-white':'bg-gray-300'}`} onClick={()=>{
@@ -175,8 +68,8 @@ function Admin() {
 
       </div>
 
-      {card && (<AllComplaints/>)}
-      {table && (<StickyHeadTable/>)}
+      {card && (<AllComplaints det={det} setdet={setdet}/>)}
+      {table && (<StickyHeadTable rows={det} setrows={setdet}/>)}
       {download && (<Downloader/>)}
       
       <Subfooter/>

@@ -3,10 +3,12 @@ import axios from 'axios';
 import AdminCard from './adminCard';
 import { NoDataFound } from './noDataFound';
 
-export const AllComplaints = () => {
-  const [det, setdet] = useState([]);
+export const AllComplaints = ({det,setdet}) => {
+  
   useEffect(() => {
-    axios.get('/allComplaints').then((data,err)=>{setdet(data.data);});
+    axios.get('/allComplaints').then((data,err)=>{
+      setdet(data.data);
+    });
   }, [])
 
   return (

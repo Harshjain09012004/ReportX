@@ -190,6 +190,17 @@ app.get('/allComplaints',async (req,res)=>{
     res.json(complaints);
 })
 
+app.post('/filterComplaints',async (req,res)=>{
+  const searchTags = req.body.search;
+  console.log(searchTags);
+  const query = {
+    $or: searchTags.map(tag => ({ [`tags.${tag}`]: true }))
+  };
+  console.log(query);
+  const data = await complaintModel.find(query);
+  res.json(data);
+})
+
 app.get('/DownloadCSV',async (req,res)=>{
     const complaints = await complaintModel.find({});
     const fields = ['title', 'name', 'age', 'gender', 'description', 

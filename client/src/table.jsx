@@ -24,9 +24,8 @@ const columns = [
 
 ];
 
-export default function StickyHeadTable() {
+export default function StickyHeadTable({rows,setrows}) {
 
-  const [rows, setrows] = React.useState([]);
   React.useEffect(() => {
     axios.get('/allComplaints').then((data,err)=>{setrows(data.data);});
   }, [])
