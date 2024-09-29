@@ -207,6 +207,17 @@ app.post('/filterComplaints',async (req,res)=>{
   res.json(data);
 })
 
+app.post('/Search',async (req,res)=>{
+    const field = req.body.field; const query = {}; 
+
+    if(field=='age' || field=='date' || field=='startTime'){
+        query[field] = req.body.search;
+    }
+    else query[field] = {'$regex':req.body.search,'$options':'i'};
+
+    const data = await complaintModel.find(query); res.json(data);
+})
+
 app.get('/DownloadCSV',async (req,res)=>{
     const complaints = await complaintModel.find({});
     const fields = ['title', 'name', 'age', 'gender', 'description', 

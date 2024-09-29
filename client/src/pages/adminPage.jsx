@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react';
+import axios from 'axios';
 import Header from '../header.jsx'
 import { usercontext } from '../UserContext.jsx';
 import { Navigate } from 'react-router-dom';
@@ -28,6 +29,11 @@ function Admin() {
   const [sortBy, setsortBy] = useState({name:false,age:false,title:false,date:false,startTime:false,gender:false});
 
   const [searchBy, setsearchBy] = useState({theft:false,threat:false,accounthacking:false,violence:false,scam:false,bribery:false,childmarriage:false,hatespeech:false,property:false});
+
+  async function searchData(){
+    const {data} = await axios.post('/Search',{field,search});
+    setdet(data);
+  }
 
   if(ready && (!user || !isAdmin)) {return <Navigate to={'/'}/>}
 
@@ -88,7 +94,7 @@ function Admin() {
               setsearch(e.target.value);
           }}/>
 
-          <FiSearch className='text-2xl active:scale-110 transition-all cursor-pointer'/>
+          <FiSearch className='text-2xl active:scale-110 transition-all cursor-pointer' onClick={searchData}/>
         </div>
 
       </div>
