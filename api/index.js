@@ -231,4 +231,12 @@ app.get('/DownloadCSV',async (req,res)=>{
     res.send(csv);
 })
 
+app.put('/updateStatus',async (req,res)=>{
+    const data = await complaintModel.updateOne({"_id":req.body.id},{"status":req.body.status});
+    if(data.modifiedCount == 1){
+        res.status(200).json({"success":true});
+    }
+    else res.status(404).json({"success":false});
+})
+
 app.listen(5000);
