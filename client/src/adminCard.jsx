@@ -41,9 +41,7 @@ const AdminCard = ({det}) => {
   }
 
   function confirmDelete(){
-    if(cnfmName == user){
-      deleteComplaint(); setdoAsk(false);
-    }
+    if(cnfmName == user) {deleteComplaint();}
     else{
       alert('Complaint Cannot Be Deleted');
       setcnfmName('');
@@ -54,10 +52,19 @@ const AdminCard = ({det}) => {
     try{
       const res = await axios.post('/deleteComplaint',{"id":det._id,"regMail":det.registrarMail});;
       if(!res.data.Success) alert("Something Wrong");
+      else{
+        setnewStatus('Terminated'); 
+        det.status = 'Terminated';
 
-      setnewStatus('Terminated'); 
-      setmenuclass('hidden');
-      det.status = 'Terminated';
+        // const content = {
+        //   "for" : det.registrarMail,
+        //   "title" : 'Complaint Termination',
+        //   "message" : `Your Complaint is Terminated due to some wrong or unreliable information.`
+        // };
+
+        // const mailres = await axios.post('/SendMail',content);
+      }
+      setmenuclass('hidden'); setdoAsk(false);
     }
     catch{alert("Unable To Process");}
   }

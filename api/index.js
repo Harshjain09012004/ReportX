@@ -3,6 +3,8 @@ const cors = require('cors');
 const app = express();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const nodemailer = require('nodemailer');
+
 const userModel = require('./models/user');
 const complaintModel = require('./models/complaint');
 const cookieparser = require('cookie-parser');
@@ -17,6 +19,14 @@ const path = require('path');
 const multer = require('multer');
 const upload = multer({dest:'uploads/'});
 const fs = require('fs');
+
+const transporter = nodemailer.createTransport({
+    service:'gmail',
+    auth: {
+        user: process.env.Email,
+        pass: process.env.password
+    }
+});
 
 app.use(cookieparser());
 app.use(express.json());
@@ -248,6 +258,24 @@ app.post('/deleteComplaint',async (req,res)=>{
         }
     }
     catch{res.json({"Success":false})};
+})
+
+app.post('/SendMail',(req,res)=>{
+    const det = req.body;
+    const mailOptions = {
+        from: process.env.Email,
+        to: 'harshjain6812@gmail.com',
+        subject: det.title,
+        text: det.message
+    };
+
+    transporter.sendMail(mailOptions,(error,info)=>{
+        if(error){
+            console.log(error);
+            res.status(404).json({'Success':false});
+        }
+        else res.status(300).json({'Success':true});
+    })
 })
 
 app.listen(5000);

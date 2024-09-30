@@ -22,7 +22,7 @@ function Admin() {
   const [download, setdownload] = useState(false);
   const [det, setdet] = useState([]);
 
-  const [field,setfield] = useState('');
+  const [field,setfield] = useState('name');
   const [search, setsearch] = useState('');
   const [type, settype] = useState('text');
 
