@@ -239,4 +239,15 @@ app.put('/updateStatus',async (req,res)=>{
     else res.status(404).json({"success":false});
 })
 
+app.post('/deleteComplaint',async (req,res)=>{
+    try{
+        const result = await complaintModel.deleteOne({"_id":req.body.id});
+        if(result.deletedCount == 1){
+            const result2 = await userModel.updateOne({"email":req.body.regMail},{$pull:{"complaints":req.body.id}});
+            res.json({"Success":true});
+        }
+    }
+    catch{res.json({"Success":false})};
+})
+
 app.listen(5000);

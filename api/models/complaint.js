@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 const complaintSchema = new mongoose.Schema({
     name:String,
+    registrarMail:String,
     age:Number,
     gender:String,
     title:String,

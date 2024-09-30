@@ -15,7 +15,8 @@ const AdminCard = ({det}) => {
   useEffect(() => {
     if(newStatus == 'Pending') setstatusClass('text-lg  font-medium' + ' text-orange-400');
     else if(newStatus == 'Active') setstatusClass('text-lg  font-medium' + ' text-green-500');
-    else setstatusClass('text-lg  font-medium' + ' text-red-900');
+    else if(newStatus == 'Terminated') setstatusClass('text-lg  font-medium' + ' text-red-800');
+    else setstatusClass('text-lg  font-medium' + ' text-purple-500');
   }, [newStatus]);
 
   function menu(){
@@ -35,8 +36,13 @@ const AdminCard = ({det}) => {
     catch{alert("Service Unavailable");}
   }
 
-  function deleteComplaint(){
-
+  async function deleteComplaint(){
+    try{
+      const res = await axios.post('/deleteComplaint',{"id":det._id,"regMail":det.registrarMail});;
+      if(!res.data.Success) alert("Something Wrong");
+      setnewStatus('Terminated'); det.status = 'Terminated';
+    }
+    catch{alert("Unable To Process");}
   }
 
   return (
