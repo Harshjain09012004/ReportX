@@ -7,7 +7,7 @@ function Login() {
   const [lname, setlname] = useState('');
   const [lpass, setlpass] = useState('');
   const [redirect, setredirect] = useState(false);
-  const {setuser,setdp,setisAdmin,setready} = useContext(usercontext);
+  const {setuser,setdp,setisAdmin,setready,setemail} = useContext(usercontext);
 
   async function loginhandler(e)
   {
@@ -18,7 +18,7 @@ function Login() {
         if(res.data.success){
             setuser(res.data.name); setdp(res.data.photo); 
             if(res.data.role == 'admin') setisAdmin(true); 
-            setredirect(true); setready(true);
+            setredirect(true); setready(true); setemail(lname);
         }
         else {alert('login failed : ' + res.data.err)}
     }

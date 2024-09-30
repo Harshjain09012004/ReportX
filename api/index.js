@@ -174,12 +174,26 @@ app.post('/SubmitForm',(req,res)=>{
             photos:det.photos, 
             startTime:det.checkin,
             endTime:det.checkout,
+            registrarMail:det.regMail,
             })
             await userModel.updateOne({_id:user.id},{$push:{"complaints":complaint._id}});
             res.json('Successful');
         })
     }
     else res.json('Unsuccessful');
+})
+
+app.get('/getEmail',async (req,res)=>{
+    const {token} = req.cookies;
+
+    if(token){
+        jwt.verify(token,jwtsecret,{},async (err,user)=>{
+            if(err) res.json({'Success':false});
+            const {registrarMail} = await userModel.findOne({'_id':user.id});
+            res.json({'Success':true,'mail':registrarMail});
+        })
+    }
+    else res.json({'Success':false});
 })
 
 app.get('/userComplaints',(req,res)=>{

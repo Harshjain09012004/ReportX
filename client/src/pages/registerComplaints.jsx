@@ -1,4 +1,5 @@
-import React, {useState } from 'react'
+import React, { useContext, useState } from 'react'
+import { usercontext } from '../UserContext';
 import { IoAddOutline } from "react-icons/io5";
 import { Link, Navigate, useParams } from 'react-router-dom';
 import { IoWarningOutline } from "react-icons/io5";
@@ -9,6 +10,7 @@ import { Uploadphotos } from '../uploadPhotos';
 
 export const Registercomplaints = () => {
   const {action} = useParams();
+  const {email} = useContext(usercontext);
   const [name,setname] = useState("");
   const [age, setage] = useState("");
   const [gender, setgender] = useState("Male");
@@ -48,6 +50,7 @@ export const Registercomplaints = () => {
 
     if(details)
     {
+      allfields['regMail'] = email;
       const { data } = await axios.post("/SubmitForm", allfields);
       if (data === "Successful") {
         alert("Comlaint Registered Successfully")

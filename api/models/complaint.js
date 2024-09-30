@@ -15,6 +15,14 @@ const complaintSchema = new mongoose.Schema({
     extraInfo:String,
     address:String,
     date:Date,
+    registrationDate:{
+        type:'String',
+        default:new Date().toISOString().split('T')[0]
+    },
+    lastUpdateDate:{
+        type:'String',
+        default:new Date().toISOString().split('T')[0]
+    },
     tags:{},
     photos:[String],
     startTime:String,

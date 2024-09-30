@@ -8,6 +8,7 @@ import {ContextProvider} from './UserContext'
 import { Route, Routes } from 'react-router-dom';
 import axios from 'axios';
 import AccountPage  from './pages/accountPage';
+import { VisualisationPage } from './pages/visualisationPage';
 
 axios.defaults.baseURL = 'http://localhost:5000';
 axios.defaults.withCredentials = true;
@@ -18,6 +19,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Landing/>}/>
         <Route path='/admin' element={<Admin/>}/>
+        <Route path='/insights' element={<VisualisationPage/>}/>
         <Route path='/login' element={<Login/>}/>
         <Route path='/register' element={<Register/>}/>
         <Route path='/account/:subpage?' element={<AccountPage/>}/>

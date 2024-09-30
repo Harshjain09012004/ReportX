@@ -40,7 +40,7 @@ export const Menu = () => {
                     <Link className='text-center p-1 hover:bg-slate-400 transition-colors' to={'/account'}>Your Profile</Link>
                     <Link className='text-center p-1 hover:bg-slate-400 transition-colors'  to={'/admin'}>Admin Page</Link>
                     <Link className='text-center 
-                    p-1 hover:bg-slate-400 transition-colors'  to={'/admin'}>Data Insights</Link>
+                    p-1 hover:bg-slate-400 transition-colors'  to={'/insights'}>Data Insights</Link>
                 </div>
             )}
 
