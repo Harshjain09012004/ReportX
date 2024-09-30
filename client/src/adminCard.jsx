@@ -68,7 +68,7 @@ const AdminCard = ({det}) => {
         <div className='flex flex-row gap-16 place-items-center w-[100%] h-96 relative
         p-1 '>
 
-          <HiDotsVertical className=' text-xl absolute top-8 right-7 active:scale-110 transition-all' onClick={menu}/>
+          <HiDotsVertical className=' text-2xl absolute top-8 right-7 active:scale-110 transition-all' onClick={menu}/>
 
           <div className={`absolute bg-zinc-200 top-[70px] right-6 w-32 text-md rounded-2xl transition-all z-20 shadow-md shadow-zinc-400 ${menuclass}`}>
         
