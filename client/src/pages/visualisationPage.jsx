@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { usercontext } from '../UserContext';
 import { Navigate } from 'react-router-dom';
 import Header from '../header';
@@ -6,21 +6,37 @@ import { Line, Doughnut, Bar } from 'react-chartjs-2';
 import { Chart as ChartJS } from 'chart.js/auto';
 import Plot from 'react-plotly.js';
 import Footer from '../footer';
+import axios from 'axios';
 
 export const VisualisationPage = () => {
   const { ready,user,isAdmin } = useContext(usercontext);
-  if(ready && !user) {return <Navigate to={'/'}/>}
-  if(ready && user && !isAdmin) {return <Navigate to={'/'}/>}
+  const [criteria, setcriteria] = useState('Monthly');
+
+  const [details, setdetails] = useState([]);
+  useEffect(()=>{
+    axios.get('/allComplaints').then(({data})=>{
+      setdetails(data);
+    })
+  },[]);
+
+  function complaintByMonth(){
+    let count = [0,0,0,0,0,0,0,0,0,0,0,0];
+    for(let comp of details){
+      let month = Number(comp.registrationDate.split('-')[1]);
+      count[month]++;
+    }
+    return count;
+  }
 
   const data = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'], // X-axis labels
+    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July','August','September','October','November','December'], // X-axis labels
     datasets: [
       {
         label: 'Number of Complaints',
         data: [65, 59, 80, 81, 56, 55, 40], // Y-axis data
         fill: false,
         borderColor: 'rgba(75,192,192,1)',  // Line color
-        tension: 0.1,  // Curved line effect
+        tension: 0.2,  // Curved line effect
         animation:{
           duration:3000,
         },
@@ -28,25 +44,6 @@ export const VisualisationPage = () => {
     ],
   };
 
-  const data2 = {
-  labels: [
-    'Red',
-    'Blue',
-    'Yellow'
-  ],
-  datasets: [{
-    label: 'My First Dataset',
-    data: [300, 50, 100],
-    backgroundColor: [
-      'rgb(255, 99, 132)',
-      'rgb(54, 162, 235)',
-      'rgb(255, 205, 86)'
-    ],
-    hoverOffset: 4
-  }]
-};
-
-  // Customize chart options
   const options = {
     scales: {
       x: {
@@ -78,6 +75,24 @@ export const VisualisationPage = () => {
         text: 'Complaints Over Time',
       },
     },
+  };
+
+  const data2 = {
+  labels: [
+    'Red',
+    'Blue',
+    'Yellow'
+  ],
+  datasets: [{
+    label: 'My First Dataset',
+    data: [300, 50, 100],
+    backgroundColor: [
+      'rgb(255, 99, 132)',
+      'rgb(54, 162, 235)',
+      'rgb(255, 205, 86)'
+    ],
+    hoverOffset: 4
+  }]
   };
 
   var data3 = [{
@@ -176,6 +191,13 @@ export const VisualisationPage = () => {
     },
     responsive: true,
   };
+  
+  if(details.length > 0){
+    data.datasets[0].data = complaintByMonth();
+  }
+
+  if(ready && !user) {return <Navigate to={'/'}/>}
+  if(ready && user && !isAdmin) {return <Navigate to={'/'}/>}
 
   if(ready && user && isAdmin){
     return (
@@ -183,8 +205,18 @@ export const VisualisationPage = () => {
       <Header/>
 
       <div className='mt-16 flex flex-col gap-10 mb-16'>
-        <div className='bg-white h-[600px] w-[1200px] ml-40 border shadow-lg shadow-gray-400 rounded-3xl flex justify-center p-2 hover:scale-105 cursor-pointer transition-all'>
+        <div className='relative bg-white h-[600px] w-[1200px] ml-40 border shadow-lg shadow-gray-400 rounded-3xl flex justify-center p-2 hover:scale-105 cursor-pointer transition-all'>
           <Line data={data} options={options} />
+          <label className='absolute top-3 right-3 hover:cursor-pointer flex place-items-center gap-4 border p-2 shadow-md rounded-xl'>
+            <p className=' font-medium'>Criteria</p>
+            <select className='p-1' onChange={(e)=>{
+              setcriteria(e.target.value);
+            }}>
+              <option value={'Monthly'}>Monthly</option>
+              <option value={'Yearly'}>Yearly</option>
+              <option value={'Daily'}>Daily</option>
+            </select>
+          </label>
         </div>
 
         <div className='flex place-items-center'>
