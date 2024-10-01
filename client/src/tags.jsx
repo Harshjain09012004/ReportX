@@ -17,8 +17,8 @@ export const Tags = (props) => {
         <h4>Select your category</h4>
       </div>
 
-      <div className=" grid grid-rows-3 grid-cols-3 h-36 gap-4 w-[50%] text-lg ">
-        <div className="flex gap-3 place-items-center border px-3 rounded-md shadow-sm">
+      <div className="Tags grid grid-rows-3 grid-cols-3 h-36 gap-4 w-[50%] text-lg ">
+        <label className="flex gap-3 place-items-center border px-3 rounded-md shadow-sm">
           <input
             type="checkbox"
             name="tv"
@@ -29,9 +29,9 @@ export const Tags = (props) => {
           />
           <BiCctv />
           <p className="font-semibold">Theft</p>
-        </div>
+        </label>
 
-        <div className="flex gap-3 place-items-center border px-3 rounded-md shadow-sm">
+        <label className="flex gap-3 place-items-center border px-3 rounded-md shadow-sm">
           <input
             type="checkbox"
             name="radio"
@@ -42,9 +42,9 @@ export const Tags = (props) => {
           />
           <SiHackaday />
           <p className="font-semibold">Threat</p>
-        </div>
+        </label>
 
-        <div className="flex gap-3 place-items-center border px-3 rounded-md shadow-sm">
+        <label className="flex gap-3 place-items-center border px-3 rounded-md shadow-sm">
           <input
             type="checkbox"
             name="parking"
@@ -55,9 +55,9 @@ export const Tags = (props) => {
           />
           <PiShieldWarningBold/>
           <p className="font-semibold">Account Hacked</p>
-        </div>
+        </label>
 
-        <div className="flex gap-3 place-items-center border px-3 rounded-md shadow-sm">
+        <label className="flex gap-3 place-items-center border px-3 rounded-md shadow-sm">
           <input
             type="checkbox"
             name="wifi"
@@ -68,9 +68,9 @@ export const Tags = (props) => {
           />
           <TbAmbulance/>
           <p className="font-semibold">Violence</p>
-        </div>
+        </label>
 
-        <div className="flex gap-3 place-items-center border px-3 rounded-md shadow-sm">
+        <label className="flex gap-3 place-items-center border px-3 rounded-md shadow-sm">
           <input
             type="checkbox"
             name="pets"
@@ -81,9 +81,9 @@ export const Tags = (props) => {
           />
           <VscSymbolField />
           <p className="font-semibold">Property</p>
-        </div>
+        </label>
 
-        <div className="flex gap-3 place-items-center border px-3 rounded-md shadow-sm">
+        <label className="flex gap-3 place-items-center border px-3 rounded-md shadow-sm">
           <input
             type="checkbox"
             name="service"
@@ -94,9 +94,9 @@ export const Tags = (props) => {
           />
           <RiCustomerService2Line />
           <p className="font-semibold">Child Marriage</p>
-        </div>
+        </label>
 
-        <div className="flex gap-3 place-items-center border px-3 rounded-md shadow-sm">
+        <label className="flex gap-3 place-items-center border px-3 rounded-md shadow-sm">
           <input
             type="checkbox"
             name="food"
@@ -107,9 +107,9 @@ export const Tags = (props) => {
           />
           <GiMoneyStack />
           <p className="font-semibold">Bribery</p>
-        </div>
+        </label>
 
-        <div className="flex gap-3 place-items-center border px-3 rounded-md shadow-sm">
+        <label className="flex gap-3 place-items-center border px-3 rounded-md shadow-sm">
           <input
             type="checkbox"
             name="security"
@@ -120,9 +120,9 @@ export const Tags = (props) => {
           />
           <SlSpeech />
           <p className="font-semibold">Hate Speech</p>
-        </div>
+        </label>
 
-        <div className="flex gap-3 place-items-center border px-3 rounded-md shadow-sm">
+        <label className="flex gap-3 place-items-center border px-3 rounded-md shadow-sm">
           <input
             type="checkbox"
             name="entrance"
@@ -133,7 +133,7 @@ export const Tags = (props) => {
           />
           <TbZoomMoney />
           <p className="font-semibold">Online Scam</p>
-        </div>
+        </label>
       </div>
     </div>
   );

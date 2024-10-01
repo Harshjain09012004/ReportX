@@ -27,7 +27,7 @@ const Card = ({det}) => {
 
             <div className='title flex flex-row place-items-center gap-1'>
               <p className='text-lg font-bold'>Description - </p>
-              <textarea className='text-lg text-slate-600 font-medium bg-zinc-50 resize-none p-1' rows={1} cols={70} value={det.description} readOnly/>
+              <textarea className='text-lg text-slate-600 font-medium bg-white resize-none p-1' rows={1} cols={70} value={det.description} readOnly/>
             </div>
 
             <div className='title flex flex-row gap-1'>
@@ -35,18 +35,34 @@ const Card = ({det}) => {
               <p className='text-lg text-slate-600 font-medium'>{det.address}</p>
             </div>
 
-            <div className='title flex flex-row gap-1'>
-              <p className='text-lg font-bold'>Complaint Date - </p>
-              <p className='text-lg text-slate-600 font-medium'>{det.date.slice(0,10)}</p>
+            <div className='flex gap-12'>
+                
+              <div className='title flex flex-row gap-1'>
+                <p className='text-lg font-bold'>Incident Date - </p>
+                <p className='text-lg text-slate-600 font-medium'>{det.date.slice(0,10)}</p>
+              </div>
+
+              <div className='title flex flex-row gap-1'>
+                <p className='text-lg font-bold'>Complaint Date - </p>
+                <p className='text-lg text-slate-600 font-medium'>{det.registrationDate}</p>
+              </div>
+
             </div>
 
-            <div className='title flex flex-row gap-1'>
-              <p className='text-lg font-bold'>Current Status - </p>
-              <p className={statusClass}>{det.status}</p>
-            </div>
+            <div className='flex gap-12'>
 
+              <div className='title flex flex-row gap-1'>
+                <p className='text-lg font-bold'>Activity Date - </p>
+                <p className='text-lg font-medium text-sky-500'>{det.lastUpdateDate}</p>
+              </div>
+
+              <div className='title flex flex-row gap-1'>
+                <p className='text-lg font-bold'>Current Status - </p>
+                <p className={statusClass}>{det.status}</p>
+              </div>
+
+            </div>
           </div>
-
         </div>
     </>
   )

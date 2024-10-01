@@ -174,7 +174,7 @@ app.post('/SubmitForm',(req,res)=>{
             photos:det.photos, 
             startTime:det.checkin,
             endTime:det.checkout,
-            registrarMail:det.regMail,
+            registrarMail:det.email,
             })
             await userModel.updateOne({_id:user.id},{$push:{"complaints":complaint._id}});
             res.json('Successful');
@@ -183,26 +183,13 @@ app.post('/SubmitForm',(req,res)=>{
     else res.json('Unsuccessful');
 })
 
-app.get('/getEmail',async (req,res)=>{
-    const {token} = req.cookies;
-
-    if(token){
-        jwt.verify(token,jwtsecret,{},async (err,user)=>{
-            if(err) res.json({'Success':false});
-            const {registrarMail} = await userModel.findOne({'_id':user.id});
-            res.json({'Success':true,'mail':registrarMail});
-        })
-    }
-    else res.json({'Success':false});
-})
-
 app.get('/userComplaints',(req,res)=>{
     const {token} = req.cookies;
     if(token)
     {
         jwt.verify(token,jwtsecret,{},async (err,user)=>{
             if(err) throw err;
-            const data = await userModel.findOne({"_id":user.id},{complaints:1,_id:0}).populate("complaints",{title:1,description:1,date:1,photos:1,address:1,status:1,_id:0});
+            const data = await userModel.findOne({"_id":user.id},{complaints:1,_id:0}).populate("complaints",{title:1,description:1,date:1,photos:1,address:1,status:1,registrationDate:1,lastUpdateDate:1,_id:0});
             res.json(data);
         })
     }
@@ -256,7 +243,8 @@ app.get('/DownloadCSV',async (req,res)=>{
 })
 
 app.put('/updateStatus',async (req,res)=>{
-    const data = await complaintModel.updateOne({"_id":req.body.id},{"status":req.body.status});
+    const data = await complaintModel.updateOne({"_id":req.body.id},{"status":req.body.status,"lastUpdateDate":new Date().toISOString().split('T')[0]});
+
     if(data.modifiedCount == 1){
         res.status(200).json({"success":true});
     }

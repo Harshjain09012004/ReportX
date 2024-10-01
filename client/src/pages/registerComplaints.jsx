@@ -1,5 +1,4 @@
-import React, { useContext, useState } from 'react'
-import { usercontext } from '../UserContext';
+import React, { useState } from 'react'
 import { IoAddOutline } from "react-icons/io5";
 import { Link, Navigate, useParams } from 'react-router-dom';
 import { IoWarningOutline } from "react-icons/io5";
@@ -10,11 +9,11 @@ import { Uploadphotos } from '../uploadPhotos';
 
 export const Registercomplaints = () => {
   const {action} = useParams();
-  const {email} = useContext(usercontext);
   const [name,setname] = useState("");
   const [age, setage] = useState("");
   const [gender, setgender] = useState("Male");
   const [title, settitle] = useState("");
+  const [email, setemail] = useState('');
   const [address, setaddress] = useState("");
   const [photos, setphotos] = useState("");
   const [photoUrl, setphotoUrl] = useState("")
@@ -39,7 +38,7 @@ export const Registercomplaints = () => {
     targetTags.forEach((tag)=>{targetObject[tag] = true;})
 
     const allfields = {
-      name,age,gender,title,address,photos,
+      name,age,gender,title,email,address,photos,
       description,extrainfo,
       checkin,checkout,targetObject,phone,date,
     };
@@ -50,7 +49,6 @@ export const Registercomplaints = () => {
 
     if(details)
     {
-      allfields['regMail'] = email;
       const { data } = await axios.post("/SubmitForm", allfields);
       if (data === "Successful") {
         alert("Comlaint Registered Successfully")
@@ -158,6 +156,21 @@ export const Registercomplaints = () => {
               }}
             />
           </div>
+          
+          <div>
+            <h3 className="font-bold text-2xl text">Email</h3>
+            <h4>Victim email / Your email</h4>
+            <input
+              type="email"
+              name="email"
+              value={email}
+              placeholder="Ex : Sam@mail.com"
+              className=" w-[700px] h-10 mt-4"
+              onChange={(e) => {
+                setemail(e.target.value);
+              }}
+            />
+          </div>
 
           <div>
             <h3 className="font-bold text-2xl">Address</h3>
@@ -176,7 +189,7 @@ export const Registercomplaints = () => {
 
           <div>
             <h3 className="font-bold text-2xl text">Phone No.</h3>
-            <h4>Enter your phone no.</h4>
+            <h4>Victim phone no. / Your phone no.</h4>
             <input
               type="tel"
               name="phone"
