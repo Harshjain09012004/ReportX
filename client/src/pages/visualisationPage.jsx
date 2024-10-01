@@ -133,7 +133,9 @@ export const VisualisationPage = () => {
           'rgba(153, 102, 255, 1)', // Purple
           'rgba(255, 159, 64, 1)', // Orange
         ],
-        borderWidth: 1, // Border width for each bar
+        borderWidth: 1, 
+        borderRadius: 16, 
+        barPercentage: 0.8, 
       },
     ],
   };
