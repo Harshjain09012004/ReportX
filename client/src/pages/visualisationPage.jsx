@@ -2,9 +2,11 @@ import React, { useContext, useEffect, useState } from 'react'
 import { usercontext } from '../UserContext';
 import { Navigate } from 'react-router-dom';
 import Header from '../header';
+import { TypeAnimation } from 'react-type-animation';
 import { Line, Doughnut, Bar } from 'react-chartjs-2';
 import { Chart as ChartJS } from 'chart.js/auto';
 import Plot from 'react-plotly.js';
+import Subfooter from '../subfooter'
 import Footer from '../footer';
 import axios from 'axios';
 
@@ -380,8 +382,15 @@ export const VisualisationPage = () => {
     return (
     <div className='bg-zinc-50 '>
       <Header/>
+      <div className=' w-[750px] p-1 flex justify-center text-gray-600 font-semibold m-5 ml-[350px]'>
+        <TypeAnimation
+        sequence={['We thrive to create a peaceful Society .', 2000, 'Our aim is to make citizen life easy .', 2000, 'Analysing data is a key to implement our goals .', 2000]}
+        style={{ fontSize: '2em' }}
+        repeat={Infinity} speed={50}
+        />
+      </div>
 
-      <div className='mt-16 flex flex-col gap-10 mb-16'>
+      <div className='mt-12 flex flex-col gap-10 mb-16'>
         <div className='relative bg-white h-[600px] w-[1200px] ml-40 border shadow-lg shadow-gray-400 rounded-3xl flex justify-center p-2 hover:scale-105 cursor-pointer transition-all'>
           <Line data={lineChartData} options={options} />
 
@@ -445,7 +454,8 @@ export const VisualisationPage = () => {
           />
         </div>
       </div>
-    
+
+      <Subfooter/>
       <Footer/>
     </div>
     )
