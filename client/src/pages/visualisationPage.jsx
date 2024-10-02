@@ -53,6 +53,9 @@ export const VisualisationPage = () => {
       title: {
         display: true,
         text: 'Complaints Over Time',
+        font:{
+          size:24,
+        },
       },
     },
   };
@@ -74,12 +77,6 @@ export const VisualisationPage = () => {
       hoverOffset: 18
     }]
   });
-  const option2 = {
-    title:{
-      display:true,
-      text:'Hell',
-    },
-  }
 
   const [doughnutChartData2, setdoughnutChartData2] = useState([{
     values: [35, 30, 34, 1],
@@ -94,6 +91,9 @@ export const VisualisationPage = () => {
   }]);
   var layout = {
     title: 'Complaints Status Comparison',
+    font:{
+      size:13,
+    },
     annotations: [
       {
         font: {
@@ -175,6 +175,20 @@ export const VisualisationPage = () => {
     responsive: true,
   };
 
+  const [scatterData, setScatterData] = useState([]);
+  var layout2 ={
+    title: 'Complaint Resolution Time (Closed Complaints)',
+    xaxis: {
+      title: 'Complaint Type',
+    },
+    yaxis: {
+      title: 'Resolution Time (Days)',
+    },
+    height: 600,
+    width: 1150,
+    showlegend: true,  // Enable the legend
+  }
+
   useEffect(()=>{
     axios.get('/allComplaints').then(({data})=>{
       setdetails(data);
@@ -249,6 +263,22 @@ export const VisualisationPage = () => {
           },
         ],
       })
+
+      const resolvedComplaints = data.filter(complaint => complaint.status === 'Closed');
+      const groupedData = {};
+      
+      resolvedComplaints.forEach(complaint => {
+        const resolutionTime = calculateResolutionTime(complaint.registrationDate, complaint.lastUpdateDate);
+        Object.keys(complaint.tags).forEach((tag)=>{
+          if (!groupedData[tag]) {
+            groupedData[tag] = { x: [], y: [], name: tag };
+          }
+          groupedData[tag].x.push(tag);
+          groupedData[tag].y.push(resolutionTime);
+        })
+      });
+      setScatterData(Object.values(groupedData));
+      console.log(Object.values(groupedData));
     })
 
   },[]);
@@ -336,6 +366,13 @@ export const VisualisationPage = () => {
     return [threat,theft,scam,hate,violence,bribe,account,property,child];
   }
 
+  function calculateResolutionTime(startTime, endTime){
+    const start = new Date(startTime);
+    const end = new Date(endTime);
+    const duration = (end - start) / (1000 * 60 * 60 * 24); //
+    return duration;
+  };
+
   if(ready && !user) {return <Navigate to={'/'}/>}
   if(ready && user && !isAdmin) {return <Navigate to={'/'}/>}
 
@@ -377,11 +414,11 @@ export const VisualisationPage = () => {
           <div className='relative bg-white h-[450px] w-[500px] border shadow-lg shadow-gray-400 rounded-3xl flex flex-col gap-5 justify-center place-items-center p-16 ml-40 hover:scale-105 cursor-pointer transition-all'>
             <p className='text-lg'>Complaints Count By Gender</p>
             <p className='absolute top-[55%] text-xl'>Gender</p>
-            <Doughnut data={doughnutChartData} options={option2}/>
+            <Doughnut data={doughnutChartData}/>
           </div>
 
           <div className='bg-white border shadow-lg shadow-gray-400 rounded-3xl flex justify-center ml-40 m-10 p-2 hover:scale-105 cursor-pointer transition-all'>
-            <Plot data={doughnutChartData2} layout={layout} config={{ responsive: true }}/>
+            <Plot data={doughnutChartData2} layout={layout} config={{ responsive: true, displaylogo: false}}/>
           </div>
         </div>
 
@@ -389,8 +426,26 @@ export const VisualisationPage = () => {
           <Bar data={barChartData} options={options4}/>
         </div>
 
+        <div className='h-[620px] w-[1200px] p-2 pb-10 bg-white mt-10 ml-40 border shadow-lg shadow-gray-400 rounded-3xl flex justify-center hover:scale-105 cursor-pointer transition-all'>
+          <Plot
+            data={scatterData.map(dataset => ({
+              ...dataset,
+              mode: 'markers',
+              marker: {
+                size: 12,
+                color: `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, 0.5)`,
+                line: {
+                  color: 'rgba(93, 164, 214, 1)',
+                  width: 2,
+                },
+              },
+              type: 'scatter',
+            }))}
+          layout={layout2} config={{displaylogo: false}}
+          />
+        </div>
       </div>
-      
+    
       <Footer/>
     </div>
     )
