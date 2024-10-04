@@ -6,7 +6,9 @@ import Subfooter from '../subfooter.jsx';
 import Footer from '../footer.jsx'
 import HelpButton from '../helpbutton.jsx';
 import { Triangle } from 'react-loader-spinner';
+
 import { usercontext } from '../UserContext.jsx';
+import { AllFaqs } from '../allFaqs.jsx';
 
 function Landing() {
   const {count,setcount} = useContext(usercontext);
@@ -89,8 +91,10 @@ function Landing() {
             </div>
             
           </div>
+          
           <HelpButton/>
           <Explore/>
+          <AllFaqs/>
           <Slider/>
           <Subfooter/>
           <Footer/>
