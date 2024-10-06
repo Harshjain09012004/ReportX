@@ -4,6 +4,7 @@ import { HiDotsVertical } from "react-icons/hi";
 import { RxUpdate } from "react-icons/rx";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { usercontext } from './UserContext';
+import { AllPhotos } from './allPhotos';
 
 const AdminCard = ({det}) => {
 
@@ -15,6 +16,7 @@ const AdminCard = ({det}) => {
   const [tempState, settempState] = useState(det.status);
   const [doAsk, setdoAsk] = useState(false);
   const [cnfmName, setcnfmName] = useState('');
+  const [biggerImage, setbiggerImage] = useState(false);
 
   useEffect(() => {
     if(newStatus == 'Pending') setstatusClass('text-lg  font-medium' + ' text-orange-400');
@@ -97,8 +99,15 @@ const AdminCard = ({det}) => {
 
           </div>
 
-          <div className='Image relative w-[25%] h-[80%] bg-gray-400 rounded-2xl ml-4'>
-            <img src={`http://localhost:5000/uploads/${det.photos[0]}`} className='relative rounded-2xl h-[100%] w-[100%] object-cover'/>
+          <div className='Image relative w-[25%] h-[80%] bg-gray-400 rounded-2xl ml-4 overflow-hidden'>
+            <img src={`http://localhost:5000/uploads/${det.photos[0]}`} className='relative rounded-2xl h-[100%] w-[100%] object-cover cursor-pointer' onClick={()=>{setbiggerImage(true)}} />
+
+            {biggerImage && <AllPhotos photos={det.photos} setbiggerImage={setbiggerImage}/>}
+
+            <div className='w-full h-full absolute top-0 left-0'>
+              <div className='absolute h-16 w-16 rounded-tl-full bg-black bottom-0 right-0 text-white flex justify-center place-items-center font-medium opacity-50'>{det.photos.length}</div>
+            </div>
+
           </div>
 
           <div className='Details flex flex-col gap-4'>
