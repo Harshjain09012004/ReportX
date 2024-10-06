@@ -104,9 +104,7 @@ const AdminCard = ({det}) => {
 
             {biggerImage && <AllPhotos photos={det.photos} setbiggerImage={setbiggerImage}/>}
 
-            <div className='w-full h-full absolute top-0 left-0'>
-              <div className='absolute h-16 w-16 rounded-tl-full bg-black bottom-0 right-0 text-white flex justify-center place-items-center font-medium opacity-50'>{det.photos.length}</div>
-            </div>
+            <div className='absolute h-16 w-16 rounded-tl-full bg-black bottom-0 right-0 text-white flex justify-center place-items-center font-medium opacity-50'>{det.photos.length}</div>
 
           </div>
 

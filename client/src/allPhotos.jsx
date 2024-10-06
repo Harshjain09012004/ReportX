@@ -18,6 +18,8 @@ export const AllPhotos = (det) => {
         </div>
 
         <RxCross1 className='absolute text-white text-4xl top-8 right-12 active:scale-110' onClick={()=>{det.setbiggerImage(false)}}/>
+
+        <div className='absolute top-8 left-10 text-white text-xl border border-white p-2 rounded-xl'>Image {index+1}</div>
     </div>
   )
 }
