@@ -104,7 +104,9 @@ const AdminCard = ({det}) => {
 
             {biggerImage && <AllPhotos photos={det.photos} setbiggerImage={setbiggerImage}/>}
 
-            <div className='absolute h-16 w-16 rounded-tl-full bg-black bottom-0 right-0 text-white flex justify-center place-items-center font-medium opacity-50'>{det.photos.length}</div>
+            {det.photos.length-1>0 && (
+              <div className='absolute h-10 w-36 bg-black bottom-0 right-0 text-white flex justify-center rounded-tl-2xl place-items-center font-medium opacity-50' onClick={()=>{setbiggerImage(true)}}>{det.photos.length - 1} More Pictures</div>
+            )}
 
           </div>
 
