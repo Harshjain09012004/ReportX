@@ -13,6 +13,9 @@ import axios from 'axios';
 export const VisualisationPage = () => {
   const { ready,user,isAdmin } = useContext(usercontext);
   const [details, setdetails] = useState([]);
+  const [criteria, setcriteria] = useState('Past-Years');
+  const [Month,setMonth] = useState(1);
+  const [Year,setYear] = useState(2024);
 
   const [lineChartData, setLineChartData] = useState({
     labels: [],
@@ -26,16 +29,16 @@ export const VisualisationPage = () => {
       },
     ],
   });
-  const options = {
+  const [options,setoptions] = useState({
     scales: {
       x: {
         title: {
           display: true,
-          text: 'Month',
+          text: 'Past-Years',
         },
       },
       y: {
-        beginAtZero: true,  // Ensure y-axis starts at 0
+        beginAtZero: true,
         title: {
           display: true,
           text: 'Number of Complaints',
@@ -60,7 +63,7 @@ export const VisualisationPage = () => {
         },
       },
     },
-  };
+  })
 
   const [doughnutChartData, setdoughnutChartData] = useState({
     labels: [
@@ -195,11 +198,11 @@ export const VisualisationPage = () => {
     axios.get('/allComplaints').then(({data})=>{
       setdetails(data);
       setLineChartData({
-        labels: labelByCriteria('Monthly'),
+        labels: labelByCriteria('Past-Years'),
         datasets: [
           {
             label: 'Number of Complaints',
-            data: complaintByCriteria('Monthly',data),
+            data: complaintByCriteria({Criteria:'Past-Years',data:data}),
             fill: false,
             borderColor: 'rgba(75,192,192,1)',
             tension: 0.2,
@@ -285,47 +288,207 @@ export const VisualisationPage = () => {
 
   },[]);
 
-  function complaintByCriteria(Criteria,data){
+  function complaintByCriteria({Criteria,data,year,month}){
     let complaint = (data ? data : details);
-    if(Criteria == 'Monthly'){
-      let count = [0,0,0,0,0,0,0,0,0,0,0,0];
+    if(Criteria == 'Year-Wise'){
+      if(!year) year = 2024;
+      let count = Array(12).fill(0);
+
       for(let comp of complaint){
-        let month = Number(comp.registrationDate.split('-')[1]);
-        count[month-1]++;
+        let timestamp = comp.registrationDate.split('-');
+        let month = Number(timestamp[1]), Year = Number(timestamp[0]);
+        if(Year == year) count[month-1]++;
       }
       return count;
     }
 
-    else if(Criteria == 'Daily'){
-      let count = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+    else if(Criteria == 'Month-Wise'){
+      if(!year) year = 2024;
+      if(!month) month = 1;
+      let count = Array(31).fill(0);
+    
       for(let comp of complaint){
-        let day = Number(comp.registrationDate.split('-')[2]);
-        count[day-1]++;
+        let timestamp = comp.registrationDate.split('-');
+        let Day = Number(timestamp[2]), Month = Number(timestamp[1]), Year = Number(timestamp[0]);
+        if(Year==year && Month==month) count[Day-1]++;
       }
       return count;
     }
 
-    else{
-      let count = [0,0,0,0,0];
+    else if(Criteria == 'Past-Years'){
+      let count = Array(5).fill(0);
       for(let comp of complaint){
         let year = Number(comp.registrationDate.split('-')[0]);
         count[year - 2019 - 1]++;
       }
       return count;
     }
+
+    else{
+      let count = Array(24).fill(0);
+      for(let comp of complaint){
+        let time = Number(comp.startTime.split(':')[0]);
+        count[time]++;
+      }
+      return count;
+    }
   }
 
   function labelByCriteria(Criteria){
-    if(Criteria == 'Monthly'){
+    if(Criteria == 'Year-Wise'){
+      setoptions({
+        scales: {
+          x: {
+            title: {
+              display: true,
+              text: 'Year-Wise',
+            },
+          },
+          y: {
+            beginAtZero: true,
+            title: {
+              display: true,
+              text: 'Number of Complaints',
+            },
+          },
+        },
+        animation: {
+          duration: 3000,
+          easing: 'easeOutElastic',  
+          delay: 500,
+        },
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'top',
+          },
+          title: {
+            display: true,
+            text: 'Complaints Over Time',
+            font:{
+              size:24,
+            },
+          },
+        },
+      })
       return ['January', 'February', 'March', 'April', 'May', 'June', 'July','August','September','October','November','December'];
     }
 
-    else if(Criteria == 'Daily'){
+    else if(Criteria == 'Month-Wise'){
+      setoptions({
+        scales: {
+          x: {
+            title: {
+              display: true,
+              text: 'Month-Wise',
+            },
+          },
+          y: {
+            beginAtZero: true,
+            title: {
+              display: true,
+              text: 'Number of Complaints',
+            },
+          },
+        },
+        animation: {
+          duration: 3000,
+          easing: 'easeOutElastic',  
+          delay: 500,
+        },
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'top',
+          },
+          title: {
+            display: true,
+            text: 'Complaints Over Time',
+            font:{
+              size:24,
+            },
+          },
+        },
+      })
       return [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31];
     }
 
-    else{
+    else if(Criteria == 'Past-Years'){
+      setoptions({
+        scales: {
+          x: {
+            title: {
+              display: true,
+              text: 'Past-Years',
+            },
+          },
+          y: {
+            beginAtZero: true,
+            title: {
+              display: true,
+              text: 'Number of Complaints',
+            },
+          },
+        },
+        animation: {
+          duration: 3000,
+          easing: 'easeOutElastic',  
+          delay: 500,
+        },
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'top',
+          },
+          title: {
+            display: true,
+            text: 'Complaints Over Time',
+            font:{
+              size:24,
+            },
+          },
+        },
+      })
       return [2020,2021,2022,2023,2024];
+    }
+
+    else{
+      setoptions({
+        scales: {
+          x: {
+            title: {
+              display: true,
+              text: 'Time-Wise',
+            },
+          },
+          y: {
+            beginAtZero: true,
+            title: {
+              display: true,
+              text: 'Number of Complaints',
+            },
+          },
+        },
+        animation: {
+          duration: 3000,
+          easing: 'easeOutElastic',  
+          delay: 500,
+        },
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'top',
+          },
+          title: {
+            display: true,
+            text: 'Complaints Over Time',
+            font:{
+              size:24,
+            },
+          },
+        },
+      })
+      return [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]
     }
   }
 
@@ -395,28 +558,117 @@ export const VisualisationPage = () => {
           <Line data={lineChartData} options={options} />
 
           <label className='absolute top-3 right-3 hover:cursor-pointer flex place-items-center gap-4 border p-2 shadow-md rounded-xl'>
+
             <p className=' font-medium'>Criteria</p>
             <select className='p-1 rounded-xl hover:cursor-pointer' onChange={(e) => {
-                const selectedCriteria = e.target.value;
+                const selectedCriteria = e.target.value; 
+                setcriteria(selectedCriteria);
                 setLineChartData({
                   labels: labelByCriteria(selectedCriteria),
                   datasets: [
                     {
                       label: 'Number of Complaints',
-                      data: complaintByCriteria(selectedCriteria),
+                      data: complaintByCriteria({Criteria:selectedCriteria}),
                       fill: false,
                       borderColor: 'rgba(75,192,192,1)',
                       tension: 0.2,
                     },
                   ],
                 });
+
+                setoptions({scales: {
+                  x: {
+                    title: {
+                      display: true,
+                      text: e.target.value,
+                    },
+                  },
+                  y: {
+                    beginAtZero: true,  // Ensure y-axis starts at 0
+                    title: {
+                      display: true,
+                      text: 'Number of Complaints',
+                    },
+                  },
+                },
+                animation: {
+                  duration: 3000,
+                  easing: 'easeOutElastic',  
+                  delay: 500,
+                },
+                responsive: true,
+                plugins: {
+                  legend: {
+                    position: 'top',
+                  },
+                  title: {
+                    display: true,
+                    text: 'Complaints Over Time',
+                    font:{
+                      size:24,
+                    },
+                  },
+                },})
+
               }}>
-              <option value={'Monthly'}>Monthly</option>
-              <option value={'Yearly'}>Yearly</option>
-              <option value={'Daily'}>Daily</option>
+              <option value={'Past-Years'}>Past Years</option>
+              <option value={'Year-Wise'}>Year-Wise</option>
+              <option value={'Month-Wise'}>Month-Wise</option>
+              <option value={'Time-Wise'}>Time-Wise</option>
             </select>
+
+            <select className={`Years p-1 rounded-xl hover:cursor-pointer ${(criteria=='Year-Wise' || criteria=='Month-Wise' || criteria=='Day-Wise') ? '' : 'hidden'}`} onChange={(e)=>{
+              setYear(e.target.value);
+              setLineChartData({
+                labels: labelByCriteria("Year-Wise"),
+                datasets: [
+                  {
+                    label: 'Number of Complaints',
+                    data: complaintByCriteria({Criteria:"Year-Wise",month:Month,year: e.target.value}),
+                    fill: false,
+                    borderColor: 'rgba(75,192,192,1)',
+                    tension: 0.2,
+                  },
+                ],
+              });
+            }}>
+              <option value={2024}>2024</option>
+              <option value={2023}>2023</option>
+              <option value={2022}>2022</option>
+              <option value={2021}>2021</option>
+              <option value={2020}>2020</option>
+            </select>
+
+            <select className={`Months p-1 rounded-xl hover:cursor-pointer ${criteria=='Month-Wise' || criteria=='Day-Wise' ? '' : 'hidden'}`} onChange={(e)=>{
+              setMonth(e.target.value);
+              setLineChartData({
+                labels: labelByCriteria("Month-Wise"),
+                datasets: [
+                  {
+                    label: 'Number of Complaints',
+                    data: complaintByCriteria({Criteria:"Month-Wise",year:Year,month:e.target.value}),
+                    fill: false,
+                    borderColor: 'rgba(75,192,192,1)',
+                    tension: 0.2,
+                  },
+                ],
+              });
+            }}>
+              <option value={1}>January</option>
+              <option value={2}>February</option>
+              <option value={3}>March</option>
+              <option value={4}>April</option>
+              <option value={5}>May</option>
+              <option value={6}>June</option>
+              <option value={7}>July</option>
+              <option value={8}>August</option>
+              <option value={9}>September</option>
+              <option value={10}>October</option>
+              <option value={11}>November</option>
+              <option value={12}>December</option>
+            </select>
+            
           </label>
-          
         </div>
 
         <div className='flex place-items-center'>
