@@ -285,7 +285,6 @@ export const VisualisationPage = () => {
       setScatterData(Object.values(groupedData));
       console.log(Object.values(groupedData));
     })
-
   },[]);
 
   function complaintByCriteria({Criteria,data,year,month}){
