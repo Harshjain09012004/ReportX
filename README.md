@@ -1,4 +1,4 @@
-# Crime Record Portal
+# Crime Management Application
 
 This Portal is designed to make the reporting of crimes as convenient as possible removing the need of physical presence of person. This portal provides one of the best UI/UX to make the entire application as interactive as possible.
 
