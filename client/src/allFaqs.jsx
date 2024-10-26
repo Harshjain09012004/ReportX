@@ -18,6 +18,8 @@ export const AllFaqs = () => {
         <Faq Ques={'Do i have to visit office after filing complaint ?'} Ans={'No, You don\'t need to visit regularly but you would be called whenever our team requires your physical presense otherwise you have enough details on the portal then you don\'t have to face much difficulty. '}/>
 
         <Faq Ques={'What happen if i am not able to be available when you have called ?'} Ans={'So we are here to help you and if you have any difficulty then talk to our officer, otherwise if you are not available for 3 continuos appointment then your complaint would be terminated with some imposed fine for wasting time.'}/>
+
+        <Faq Ques={'What are different helpline numbers ?'} Ans={`Child : 110 | Women : 108 | General :  100 | Whatsapp : 1234567890`}/>
     </div>
   )
 }

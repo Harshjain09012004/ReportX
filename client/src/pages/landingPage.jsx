@@ -4,7 +4,7 @@ import Explore from '../explorebutton.jsx'
 import Slider from '../imageSlider.jsx';
 import Subfooter from '../subfooter.jsx';
 import Footer from '../footer.jsx'
-import HelpButton from '../helpbutton.jsx';
+import ChatBot from '../chatbot.jsx';
 import { Triangle } from 'react-loader-spinner';
 
 import { usercontext } from '../UserContext.jsx';
@@ -92,7 +92,7 @@ function Landing() {
             
           </div>
           
-          <HelpButton/>
+          <ChatBot/>
           <Explore/>
           <AllFaqs/>
           <Slider/>
